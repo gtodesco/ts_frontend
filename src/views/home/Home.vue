@@ -13,7 +13,7 @@
         <v-img
           contain
           max-height="70%"
-          src="../assets/logo.png"
+          src="../../assets/logo.png"
         ></v-img>
       </v-avatar>
 
