@@ -58,7 +58,7 @@
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-            src="../assets/inicio/team.jpg"
+            src="../../assets/home/team.jpg"
             gradient="to bottom, rgba(0,0,0,.50), rgba(0,0,0,.90)"
           >
             <v-theme-provider dark>
@@ -170,7 +170,7 @@
       <section id="status">
         <v-parallax
           :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-          src="../assets/inicio/board.png"
+          src="../../assets/home/board.png"
         >
           <v-container fill-height>
             <v-row class="mx-auto">
@@ -224,7 +224,7 @@
             class="elevation-12 mb-12"
             size="128"
           >
-            <v-img src="../assets/inicio/gabriel.jpg"></v-img>
+            <v-img src="../../assets/home/gabriel.jpg"></v-img>
           </v-avatar>
 
           <div></div>
