@@ -33,27 +33,10 @@
                 <v-text-field
                   v-model="email"
                   id="email"
-                  label="E-mail"
-                  prepend-icon="mdi-account"
+                  label="Digite seu e-mail"
+                  prepend-icon="mdi-email"
                   :rules="[rules.required, rules.email]"
                 />
-
-                <v-text-field
-                  v-model="senha"
-                  id="senha"
-                  :append-icon="mostrar_senha ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="mostrar_senha ? 'text' : 'password'"
-                  @click:append="mostrar_senha = !mostrar_senha"
-                  label="Senha"
-                  prepend-icon="mdi-lock"
-                  :rules="[rules.required]"
-                />
-                
-                <router-link to="login/senha" style="text-decoration: none;">
-                  <a class="ml-8">
-                    Esqueci minha senha
-                  </a>
-                </router-link>
 
               </v-card-text>
               <v-card-actions>
@@ -61,9 +44,9 @@
                   class="ml-3" 
                   text 
                   small 
-                  @click="irParaCadastro"
+                  @click="irParaLogin"
                 >
-                  Registre-se
+                  Voltar
                 </v-btn>
 
                 <v-spacer />
@@ -76,7 +59,7 @@
                   :loading="sn_carregando_login"
                   :disabled="!valid"
                 >
-                  Entrar
+                  Enviar
                 </v-btn>
               </v-card-actions>
             </v-form>
@@ -94,8 +77,6 @@ export default {
     valid: true,
 
     email: "",
-    senha: "",
-    mostrar_senha: false,
 
     rules: {
       required: v => !!v || 'Obrigatório',
@@ -116,8 +97,8 @@ export default {
       }, 5000);
     },
 
-    irParaCadastro: function() {
-      this.$router.push('/cadastro');
+    irParaLogin: function() {
+      this.$router.push('/login');
     }
     
   }

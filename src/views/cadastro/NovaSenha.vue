@@ -26,46 +26,34 @@
             <v-form 
               ref="form"
               v-model="valid"
-              @submit.prevent="realizaLogin()"
+              @submit.prevent="realizaCadastro()"
             >
               <v-card-text>
 
                 <v-text-field
-                  v-model="email"
-                  id="email"
-                  label="E-mail"
-                  prepend-icon="mdi-account"
-                  :rules="[rules.required, rules.email]"
-                />
-
-                <v-text-field
                   v-model="senha"
-                  id="senha"
                   :append-icon="mostrar_senha ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="mostrar_senha ? 'text' : 'password'"
                   @click:append="mostrar_senha = !mostrar_senha"
-                  label="Senha"
+                  id="senha"
+                  label="Nova senha"
                   prepend-icon="mdi-lock"
                   :rules="[rules.required]"
                 />
-                
-                <router-link to="login/senha" style="text-decoration: none;">
-                  <a class="ml-8">
-                    Esqueci minha senha
-                  </a>
-                </router-link>
+
+                <v-text-field
+                  v-model="senha_confirma"
+                  :append-icon="mostrar_senha_confirma ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="mostrar_senha_confirma ? 'text' : 'password'"
+                  @click:append="mostrar_senha_confirma = !mostrar_senha_confirma"
+                  id="senha-confirm"
+                  label="Confirme a nova senha"
+                  prepend-icon="mdi-lock-check"
+                  :rules="[rules.required, senhaValidacao]"
+                />
 
               </v-card-text>
               <v-card-actions>
-                <v-btn
-                  class="ml-3" 
-                  text 
-                  small 
-                  @click="irParaCadastro"
-                >
-                  Registre-se
-                </v-btn>
-
                 <v-spacer />
 
                 <v-btn 
@@ -73,10 +61,10 @@
                   large
                   type="submit" 
                   color="primary" 
-                  :loading="sn_carregando_login"
+                  :loading="sn_carregando_cadastro"
                   :disabled="!valid"
                 >
-                  Entrar
+                  Confirmar
                 </v-btn>
               </v-card-actions>
             </v-form>
@@ -93,22 +81,28 @@ export default {
   data: () => ({
     valid: true,
 
-    email: "",
     senha: "",
+    senha_confirma: "",
     mostrar_senha: false,
+    mostrar_senha_confirma: false,
 
     rules: {
       required: v => !!v || 'Obrigatório',
-      email: v => /.+@.+\..+/.test(v) || 'E-mail inválido',
     },
 
-    sn_carregando_login: false,
+    sn_carregando_cadastro: false,
   }),
 
+  computed: {
+      senhaValidacao() {
+        return () => (this.senha === this.senha_confirma) || 'Senha diferente'
+      },
+  },
+
   methods: {
-    async realizaLogin() {
+    async realizaCadastro() {
       
-      this.sn_carregando_login = true;
+      this.sn_carregando_cadastro = true;
 
       // Requisição para login
       setTimeout(() => {
@@ -116,10 +110,6 @@ export default {
       }, 5000);
     },
 
-    irParaCadastro: function() {
-      this.$router.push('/cadastro');
-    }
-    
-  }
+}
 }
 </script>
