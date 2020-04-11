@@ -35,16 +35,18 @@
                   id="email"
                   label="E-mail"
                   prepend-icon="mdi-account"
-                  :rules="emailRules"
+                  :rules="[rules.required, rules.email]"
                 />
 
                 <v-text-field
                   v-model="senha"
                   id="senha"
-                  type="password"
+                  :append-icon="mostrar_senha ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="mostrar_senha ? 'text' : 'password'"
+                  @click:append="mostrar_senha = !mostrar_senha"
                   label="Senha"
                   prepend-icon="mdi-lock"
-                  :rules="senhaRules"
+                  :rules="[rules.required]"
                 />
 
                 <a class="ml-8">
@@ -88,15 +90,16 @@ export default {
 
   data: () => ({
     valid: true,
+
     email: "",
-    emailRules: [
-      v => !!v || 'Informe o e-mail',
-      v => /.+@.+\..+/.test(v) || 'E-mail inválido',
-    ],
     senha: "",
-    senhaRules: [
-      v => !!v || 'Informe a senha',
-    ],
+    mostrar_senha: false,
+
+    rules: {
+      required: v => !!v || 'Obrigatório',
+      email: v => /.+@.+\..+/.test(v) || 'E-mail inválido',
+    },
+
     sn_carregando_login: false,
   }),
 
