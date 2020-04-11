@@ -23,7 +23,7 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="/cadastrar" style="text-decoration: none;">
+      <router-link to="/cadastro" style="text-decoration: none;">
         <v-btn
           color="primary"
           outlined
