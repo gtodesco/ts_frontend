@@ -54,7 +54,7 @@
                   id="senha"
                   label="Senha"
                   prepend-icon="mdi-lock"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.senha]"
                 />
 
                 <v-text-field
@@ -116,6 +116,7 @@ export default {
     rules: {
       required: v => !!v || 'Obrigatório',
       email: v => /.+@.+\..+/.test(v) || 'E-mail inválido',
+      senha: v => v.length >= 8 || 'Senha deve ter no mínimo 8 caracteres',
     },
 
     sn_carregando_cadastro: false,
