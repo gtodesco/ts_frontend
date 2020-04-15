@@ -74,7 +74,7 @@
                   class="ml-3" 
                   text 
                   small 
-                  @click="irParaLogin"
+                  @click="mxIrPara('login')"
                 >
                   Login
                 </v-btn>
@@ -101,7 +101,10 @@
 </template>
 
 <script>
+import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+
 export default {
+  mixins: [mixinFuncoesGerais],
 
   data: () => ({
     valid: true,
@@ -135,14 +138,9 @@ export default {
 
       // Requisição para login
       setTimeout(() => {
-        this.$router.push('/app');
+        this.mxIrPara('app');
       }, 5000);
     },
-
-    irParaLogin: function() {
-      this.$router.push('/login');
-    }
-    
   }
 }
 </script>

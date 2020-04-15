@@ -38,7 +38,7 @@
                   id="senha"
                   label="Nova senha"
                   prepend-icon="mdi-lock"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.senha]"
                 />
 
                 <v-text-field
@@ -76,7 +76,10 @@
 </template>
 
 <script>
+import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+
 export default {
+  mixins: [mixinFuncoesGerais],
 
   data: () => ({
     valid: true,
@@ -88,6 +91,7 @@ export default {
 
     rules: {
       required: v => !!v || 'Obrigatório',
+      senha: v => v.length >= 8 || 'Senha deve ter no mínimo 8 caracteres',
     },
 
     sn_carregando_cadastro: false,
@@ -106,7 +110,7 @@ export default {
 
       // Requisição para login
       setTimeout(() => {
-        this.$router.push('/app');
+        this.mxIrPara('app');
       }, 5000);
     },
 

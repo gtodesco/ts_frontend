@@ -61,7 +61,7 @@
                   class="ml-3" 
                   text 
                   small 
-                  @click="irParaCadastro"
+                  @click="mxIrPara('cadastro')"
                 >
                   Registre-se
                 </v-btn>
@@ -88,8 +88,11 @@
 </template>
 
 <script>
-export default {
+import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 
+export default {
+  mixins: [mixinFuncoesGerais],
+  
   data: () => ({
     valid: true,
 
@@ -112,14 +115,9 @@ export default {
 
       // Requisição para login
       setTimeout(() => {
-        this.$router.push('/app');
+        this.mxIrPara('app');
       }, 5000);
     },
-
-    irParaCadastro: function() {
-      this.$router.push('/cadastro');
-    }
-    
   }
 }
 </script>
