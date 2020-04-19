@@ -5,6 +5,10 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import VueSweetalert2 from 'vue-sweetalert2';
+import Amplify from 'aws-amplify';
+import amplify_config from './amplify-config';
+
+Amplify.configure(amplify_config);
 
 Vue.use(VueSweetalert2);
 

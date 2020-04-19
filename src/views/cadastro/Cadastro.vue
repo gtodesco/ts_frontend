@@ -102,9 +102,14 @@
 
 <script>
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import mixinAlert from '../../mixins/mixinAlert';
+import { Auth } from 'aws-amplify';
 
 export default {
-  mixins: [mixinFuncoesGerais],
+  mixins: [
+    mixinFuncoesGerais,
+    mixinAlert
+  ],
 
   data: () => ({
     valid: true,
@@ -133,13 +138,35 @@ export default {
 
   methods: {
     async realizaCadastro() {
-      
-      this.sn_carregando_cadastro = true;
+      try{
 
-      // Requisição para login
-      setTimeout(() => {
-        this.mxIrPara('app');
-      }, 5000);
+        this.sn_carregando_cadastro = true;
+
+        // Cadsatra usuário na Amazon
+        await Auth.signUp({
+          username: this.email,
+          password: this.senha,
+          attributes: {
+            email: this.email
+          }
+        });
+
+        // Após cadastrar, direciona para tela de login
+        setTimeout(() => {
+          this.mxIrPara('login');
+        }, 5000);
+      
+      } catch (e) {
+
+        if (e.code === "UsernameExistsException") {
+          this.mxAlertErro("Este e-mail já está cadastrado.");
+        }
+        else {
+          this.mxAlertErroInesperado();
+        }
+
+        this.sn_carregando_cadastro = false;
+      }
     },
   }
 }
