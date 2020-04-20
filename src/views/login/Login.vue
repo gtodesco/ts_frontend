@@ -55,6 +55,11 @@
                   </a>
                 </router-link>
 
+                <v-checkbox
+                  v-model="sn_lembrar"
+                  label="Manter-me logado"
+                ></v-checkbox>
+
               </v-card-text>
               <v-card-actions>
                 <v-btn
@@ -104,6 +109,7 @@ export default {
     email: "",
     senha: "",
     mostrar_senha: false,
+    sn_lembrar: false,
 
     rules: {
       required: v => !!v || 'Obrigatório',
