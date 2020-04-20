@@ -108,7 +108,7 @@ import { Auth } from 'aws-amplify';
 export default {
   mixins: [
     mixinFuncoesGerais,
-    mixinAlert
+    mixinAlert,
   ],
 
   data: () => ({
@@ -142,7 +142,7 @@ export default {
 
         this.sn_carregando_cadastro = true;
 
-        // Cadsatra usuário na Amazon
+        // Cadastra usuário na Amazon
         await Auth.signUp({
           username: this.email,
           password: this.senha,
@@ -157,11 +157,12 @@ export default {
         }, 5000);
       
       } catch (e) {
+
         if (e.code === "UsernameExistsException") {
           this.mxAlertErro("Este e-mail já está cadastrado.");
         }
         else {
-          this.mxAlertErroInesperado();
+          this.mxAlertErroInesperado(e);
         }
 
         this.sn_carregando_cadastro = false;

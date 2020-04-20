@@ -34,11 +34,11 @@ const mixinAlert = {
             return retorno.value ? retorno.value : false;
         },
 
-        async mxAlertErroInesperado() {
+        async mxAlertErroInesperado(mensagem) {
             const retorno = await this.$swal({
                 icon: 'error',
                 title: '<strong style="font-family: Verdana, sans-serif">x ERRO x</strong>',
-                html: '<p style="font-family: Verdana, sans-serif">Ocorreu um erro inesperado.</p>',
+                html: '<p style="font-family: Verdana, sans-serif">Ocorreu um erro inesperado.</br></br><i>' + mensagem + '</i></p>',
                 showCancelButton: false,
                 confirmButtonText: '<p style="font-family: Verdana, sans-serif">OK</p>',
                 confirmButtonColor: '#3085d6',

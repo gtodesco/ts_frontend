@@ -36,6 +36,7 @@
                   label="E-mail"
                   prepend-icon="mdi-email"
                   :rules="[rules.required, rules.email]"
+                  disabled
                 />
 
                 <v-text-field
@@ -90,7 +91,7 @@ import { Auth } from 'aws-amplify';
 export default {
   mixins: [
     mixinFuncoesGerais,
-    mixinAlert
+    mixinAlert,
   ],
 
   data: () => ({
@@ -122,11 +123,12 @@ export default {
         }, 5000);
       
       } catch (e) {
+
         if (e.code === "CodeMismatchException") {
           this.mxAlertErro("Código de confirmação ou e-mail inválido.");
         }
         else {
-          this.mxAlertErroInesperado();
+          this.mxAlertErroInesperado(e);
         }
 
         this.sn_carregando_confirmacao = false;
@@ -134,8 +136,13 @@ export default {
     },
 
     async reenviarCodigo() {
-        // Reenvia o código para o usuário
-        await Auth.resendSignUp(this.email);
+        try {
+            // Reenvia o código para o usuário
+            await Auth.resendSignUp(this.email);
+        } catch(e) {
+            this.mxAlertErroInesperado(e);
+        }
+        
     }
 
   },
