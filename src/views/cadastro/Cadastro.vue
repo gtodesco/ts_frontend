@@ -151,13 +151,12 @@ export default {
           }
         });
 
-        // Após cadastrar, direciona para tela de login
+        // Após cadastrar, direciona para tela de confirmacao de conta
         setTimeout(() => {
-          this.mxIrPara('login');
+          this.mxIrPara('confirma-conta/' + this.email);
         }, 5000);
       
       } catch (e) {
-
         if (e.code === "UsernameExistsException") {
           this.mxAlertErro("Este e-mail já está cadastrado.");
         }

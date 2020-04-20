@@ -26,7 +26,7 @@
             <v-form 
               ref="form"
               v-model="valid"
-              @submit.prevent="realizaLogin()"
+              @submit.prevent="realizaConfirmacao()"
             >
               <v-card-text>
 
@@ -34,26 +34,21 @@
                   v-model="email"
                   id="email"
                   label="E-mail"
-                  prepend-icon="mdi-account"
+                  prepend-icon="mdi-email"
                   :rules="[rules.required, rules.email]"
                 />
 
                 <v-text-field
-                  v-model="senha"
-                  id="senha"
-                  :append-icon="mostrar_senha ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="mostrar_senha ? 'text' : 'password'"
-                  @click:append="mostrar_senha = !mostrar_senha"
-                  label="Senha"
-                  prepend-icon="mdi-lock"
+                  v-model="codigo"
+                  id="codigo"
+                  label="Código"
+                  prepend-icon="mdi-security"
                   :rules="[rules.required]"
                 />
-                
-                <router-link to="login/senha" style="text-decoration: none;">
-                  <a class="ml-8">
-                    Esqueci minha senha
-                  </a>
-                </router-link>
+
+                <a class="ml-8" @click="reenviarCodigo()">
+                    Reenviar código
+                </a>
 
               </v-card-text>
               <v-card-actions>
@@ -61,9 +56,9 @@
                   class="ml-3" 
                   text 
                   small 
-                  @click="mxIrPara('cadastro')"
+                  onClick="javascript:history.go(-1)"
                 >
-                  Registre-se
+                  Voltar
                 </v-btn>
 
                 <v-spacer />
@@ -73,10 +68,10 @@
                   large
                   type="submit" 
                   color="primary" 
-                  :loading="sn_carregando_login"
+                  :loading="sn_carregando_confirmacao"
                   :disabled="!valid"
                 >
-                  Entrar
+                  Confirmar
                 </v-btn>
               </v-card-actions>
             </v-form>
@@ -97,69 +92,56 @@ export default {
     mixinFuncoesGerais,
     mixinAlert
   ],
-  
+
   data: () => ({
     valid: true,
 
     email: "",
-    senha: "",
-    mostrar_senha: false,
+    codigo: "",
 
     rules: {
       required: v => !!v || 'Obrigatório',
       email: v => /.+@.+\..+/.test(v) || 'E-mail inválido',
     },
 
-    sn_carregando_login: false,
+    sn_carregando_confirmacao: false,
   }),
 
   methods: {
-    async realizaLogin() {
-      
-      try {
+    async realizaConfirmacao() {
+      try{
 
-        this.sn_carregando_login = true;
+        this.sn_carregando_confirmacao = true;
 
-        // Realiza login
-        const user = await Auth.signIn(this.email, this.senha);
+        // Confirma rgistro com o código enviado por e-mail
+        await Auth.confirmSignUp(this.email, this.codigo);
 
-        console.log(user);
-
-        // Requisição para login
+        // Após confirmar, direciona para tela de login
         setTimeout(() => {
-          this.mxIrPara('app');
+          this.mxIrPara('login');
         }, 5000);
-
-      } catch(e) {
-        if (e.code === 'UserNotConfirmedException') {
-          
-          const retorno = await this.mxAlertConfirma("Você precisa confirmar sua conta. Deseja fazer isso agora?");
-
-          if (retorno) {
-            this.mxIrPara('confirma-conta/' + this.email);
-          }
-
-        } else if (e.code === 'PasswordResetRequiredException') {
-          
-          await this.mxAlertErro("Você precisa atualizar a sua senha.");
-
-          this.mxIrPara('login/senha');
-
-        } else if (e.code === 'NotAuthorizedException') {
-
-          this.mxAlertErro("Usuário ou senha incorretos.");
-
+      
+      } catch (e) {
+        if (e.code === "CodeMismatchException") {
+          this.mxAlertErro("Código de confirmação ou e-mail inválido.");
         }
         else {
-
           this.mxAlertErroInesperado();
-
         }
 
-        this.sn_carregando_login = false;
+        this.sn_carregando_confirmacao = false;
       }
-
     },
+
+    async reenviarCodigo() {
+        // Reenvia o código para o usuário
+        await Auth.resendSignUp(this.email);
+    }
+
+  },
+
+  created() {
+      this.email = this.$route.params.email
   }
 }
 </script>

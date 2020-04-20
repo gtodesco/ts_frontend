@@ -5,6 +5,7 @@ import Login from '../views/login/Login.vue'
 import EnvioSenha from '../views/login/EnvioSenha.vue'
 import Cadastro from '../views/cadastro/Cadastro.vue'
 import NovaSenha from '../views/cadastro/NovaSenha.vue'
+import ConfirmaConta from '../views/cadastro/ConfirmaConta.vue'
 import App from '../views/app/App.vue'
 
 Vue.use(VueRouter)
@@ -40,6 +41,11 @@ const routes = [
     path: '/nova-senha',
     name: 'Nova senha',
     component: NovaSenha,
+  },
+  {
+    path: '/confirma-conta/:email',
+    name: 'Confirma conta',
+    component: ConfirmaConta,
   },
   {
     path: '/app',
