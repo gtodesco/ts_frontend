@@ -263,7 +263,7 @@
       </section>
 
       <!-- Contato -->
-      <v-sheet
+      <!-- <v-sheet
         id="contato"
         color="#333333"
         dark
@@ -333,7 +333,7 @@
         </v-container>
 
         <div class="py-12"></div>
-      </v-sheet>
+      </v-sheet> -->
     </v-content>
 
     <!-- Rodapé (copyright) -->
@@ -351,7 +351,8 @@
 
 <script>
 export default {
-  name: 'App',
+  name: 'Home',
+
   data: () => ({
     features: [
       {
@@ -393,10 +394,14 @@ export default {
       ['28%', 'Aumento da produtividade'],
     ],
   }),
+
   methods: {
-    enviarMensagem: function () {
-      alert("Mensagem enviada!");
-    }
-  }
+
+    // enviarMensagem: function () {
+    //   alert("Mensagem enviada!");
+    // }
+
+  },
+
 };
 </script>
