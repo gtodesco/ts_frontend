@@ -126,39 +126,40 @@ export default {
 
         this.sn_carregando_login = true;
 
+        let storageCache;
+
         // Verifica se irá armazenar a informação no localStorage ou sessionStorage
         if (this.sn_lembrar) {
-          const localStorageCache = Cache.createInstance({
+          storageCache = Cache.createInstance({
               keyPrefix: "localStorageAuthCache",
               storage: window.localStorage
           });
-
-          await Auth.configure({
-              storage: localStorageCache
-          });
-        }
-        else {
-          const sessionStorageCache = Cache.createInstance({
+        } else {
+          storageCache = Cache.createInstance({
               keyPrefix: "sessionAuthCache",
               storage: window.sessionStorage
           });
-
-          await Auth.configure({
-              storage: sessionStorageCache
-          });
         }
+
+        // Seta o storage
+        await Auth.configure({
+          storage: storageCache
+        });
 
         // Realiza login
         const user = await Auth.signIn(this.email, this.senha);
 
-        console.log(user);
+        // Salva o id do usuário logado e o token JWT
+        this.$store.state.currentUserId = user.username;
+        this.$store.state.jwtToken = user.signInUserSession.idToken.jwtToken;
 
-        // Requisição para login
+        // Direciona para o aplicativo
         setTimeout(() => {
           this.mxIrPara('app');
         }, 5000);
 
       } catch(e) {
+
         if (e.code === 'UserNotConfirmedException') {
           
           const retorno = await this.mxAlertConfirma("Você precisa confirmar sua conta. Deseja fazer isso agora?");
