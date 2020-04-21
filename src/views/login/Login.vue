@@ -95,7 +95,7 @@
 <script>
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
-import { Auth } from 'aws-amplify';
+import { Auth, Cache } from 'aws-amplify';
 
 export default {
   mixins: [
@@ -125,6 +125,28 @@ export default {
       try {
 
         this.sn_carregando_login = true;
+
+        // Verifica se irá armazenar a informação no localStorage ou sessionStorage
+        if (this.sn_lembrar) {
+          const localStorageCache = Cache.createInstance({
+              keyPrefix: "localStorageAuthCache",
+              storage: window.localStorage
+          });
+
+          await Auth.configure({
+              storage: localStorageCache
+          });
+        }
+        else {
+          const sessionStorageCache = Cache.createInstance({
+              keyPrefix: "sessionAuthCache",
+              storage: window.sessionStorage
+          });
+
+          await Auth.configure({
+              storage: sessionStorageCache
+          });
+        }
 
         // Realiza login
         const user = await Auth.signIn(this.email, this.senha);
