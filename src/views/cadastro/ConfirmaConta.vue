@@ -125,7 +125,7 @@ export default {
       } catch (e) {
 
         if (e.code === "CodeMismatchException") {
-          this.mxAlertErro("Código de confirmação ou e-mail inválido.");
+          this.mxAlertErro("Código de confirmação inválido.");
         }
         else {
           this.mxAlertErroInesperado(e);
