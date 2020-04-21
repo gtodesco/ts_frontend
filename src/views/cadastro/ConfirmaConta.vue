@@ -23,12 +23,27 @@
                 class="ma-3"
               ></v-img>  
             </v-row>       
+
+            <v-card-title class="justify-center font-weight-black text-uppercase">
+              Confirmar conta
+            </v-card-title>
+
             <v-form 
               ref="form"
               v-model="valid"
               @submit.prevent="realizaConfirmacao()"
             >
               <v-card-text>
+
+                <v-chip
+                  class="ma-2"
+                  color="green"
+                  outlined
+                  label
+                  small
+                >
+                  Verifique seu e-mail
+                </v-chip>
 
                 <v-text-field
                   v-model="email"
@@ -80,6 +95,22 @@
         </v-col>
       </v-row>
     </v-container>
+    
+    <v-snackbar
+      v-model="sn_mostra_enviar_codigo"
+      :timeout="4000"
+      color="success"
+    >
+      Código enviado
+      <v-btn
+        color="white"
+        text
+        @click="snackbar = false"
+      >
+        Fechar
+      </v-btn>
+    </v-snackbar>
+
   </v-content>
 </template>
 
@@ -99,6 +130,8 @@ export default {
 
     email: "",
     codigo: "",
+
+    sn_mostra_enviar_codigo: false,
 
     rules: {
       required: v => !!v || 'Obrigatório',
@@ -137,10 +170,18 @@ export default {
 
     async reenviarCodigo() {
         try {
-            // Reenvia o código para o usuário
-            await Auth.resendSignUp(this.email);
+          // Reenvia o código para o usuário
+          await Auth.resendSignUp(this.email);
+
+          this.sn_mostra_enviar_codigo = true;
+
         } catch(e) {
+          if (e.code === "LimitExceededException") {
+            this.mxAlertErro("Limite de envios excedido. Tente novamente mais tarde.");
+          }
+          else {
             this.mxAlertErroInesperado(e);
+          }
         }
         
     }
