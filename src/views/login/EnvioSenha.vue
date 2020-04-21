@@ -22,7 +22,12 @@
                 src="../../assets/logo.png"
                 class="ma-3"
               ></v-img>  
-            </v-row>       
+            </v-row>
+
+            <v-card-title class="justify-center font-weight-black text-uppercase">
+              Esqueci minha senha
+            </v-card-title>
+
             <v-form 
               ref="form"
               v-model="valid"

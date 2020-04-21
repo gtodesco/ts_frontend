@@ -23,6 +23,11 @@
                 class="ma-3"
               ></v-img>  
             </v-row>       
+
+            <v-card-title class="justify-center font-weight-black text-uppercase">
+              Login
+            </v-card-title>
+
             <v-form 
               ref="form"
               v-model="valid"
