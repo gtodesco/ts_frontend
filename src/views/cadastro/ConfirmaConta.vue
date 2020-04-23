@@ -105,7 +105,7 @@
       <v-btn
         color="white"
         text
-        @click="snackbar = false"
+        @click="sn_mostra_enviar_codigo = false"
       >
         Fechar
       </v-btn>
