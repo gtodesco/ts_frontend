@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
 
   state: {
     currentUserId: "",
@@ -15,5 +15,15 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+  },
+  getters: {
+    jwtToken: state => {
+      return state.jwtToken;
+    },
+    currentUserId: state => {
+      return state.currentUserId;
+    }
   }
 })
+
+export default store

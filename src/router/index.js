@@ -8,6 +8,8 @@ import NovaSenha from '../views/cadastro/NovaSenha.vue'
 import ConfirmaConta from '../views/cadastro/ConfirmaConta.vue'
 import App from '../views/app/App.vue'
 
+import store from '../store/index'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -61,5 +63,20 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+
+  // const retorno = Auth.getCurrentSession();
+
+  console.log(store.getters.currentUserId);
+
+  console.log('to', to);
+  console.log('from', from);
+  console.log('next', next);
+
+  // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  // else next()
+})
+
 
 export default router
