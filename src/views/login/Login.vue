@@ -155,12 +155,12 @@ export default {
         const user = await Auth.signIn(this.email, this.senha);
 
         // Salva o id do usuário logado e o token JWT
-        this.$store.state.currentUserId = user.username;
-        this.$store.state.jwtToken = user.signInUserSession.idToken.jwtToken;
+        localStorage.setItem('currentUserId', user.username);
+        localStorage.setItem('jwtToken', user.signInUserSession.idToken.jwtToken);
 
         // Direciona para o aplicativo
         setTimeout(() => {
-          this.mxIrPara('app');
+          this.mxIrPara('equipes');
         }, 5000);
 
       } catch(e) {

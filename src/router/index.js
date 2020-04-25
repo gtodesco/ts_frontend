@@ -6,9 +6,7 @@ import EnvioSenha from '../views/login/EnvioSenha.vue'
 import Cadastro from '../views/cadastro/Cadastro.vue'
 import NovaSenha from '../views/cadastro/NovaSenha.vue'
 import ConfirmaConta from '../views/cadastro/ConfirmaConta.vue'
-import App from '../views/app/App.vue'
-
-import store from '../store/index'
+import Equipes from '../views/app/Equipes.vue'
 
 Vue.use(VueRouter)
 
@@ -16,7 +14,7 @@ const routes = [
   {
     path: '*', // Caminho para quando for digitado uma url que não existe
     name: 'Inexistent',
-    component: Home
+    component: Home // Deve diretionar para uma tela de rota inválida
   },
   {
     path: '/',
@@ -50,9 +48,9 @@ const routes = [
     component: ConfirmaConta,
   },
   {
-    path: '/app',
-    name: 'App',
-    component: App
+    path: '/equipes',
+    name: 'Equipes',
+    component: Equipes
   }
 ]
 
@@ -64,19 +62,19 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( (to, from, next) => {
 
-  // const retorno = Auth.getCurrentSession();
+    console.log(localStorage.getItem('currentUserId'));
+    console.log(localStorage.getItem('jwtToken'));
 
-  console.log(store.getters.currentUserId);
+    console.log('to', to);
+    console.log('from', from);
+    console.log('next', next);
 
-  console.log('to', to);
-  console.log('from', from);
-  console.log('next', next);
+    next();
 
   // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
   // else next()
 })
-
 
 export default router
