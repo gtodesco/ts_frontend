@@ -60,10 +60,10 @@
                   </a>
                 </router-link>
 
-                <v-checkbox
+                <!-- <v-checkbox
                   v-model="sn_lembrar"
                   label="Manter-me logado"
-                ></v-checkbox>
+                ></v-checkbox> -->
 
               </v-card-text>
               <v-card-actions>
@@ -134,17 +134,22 @@ export default {
         let storageCache;
 
         // Verifica se irá armazenar a informação no localStorage ou sessionStorage
-        if (this.sn_lembrar) {
-          storageCache = Cache.createInstance({
-              keyPrefix: "localStorageAuthCache",
-              storage: window.localStorage
-          });
-        } else {
-          storageCache = Cache.createInstance({
-              keyPrefix: "sessionAuthCache",
-              storage: window.sessionStorage
-          });
-        }
+        // if (this.sn_lembrar) {
+        //   storageCache = Cache.createInstance({
+        //       keyPrefix: "localStorageAuthCache",
+        //       storage: window.localStorage
+        //   });
+        // } else {
+        //   storageCache = Cache.createInstance({
+        //       keyPrefix: "sessionAuthCache",
+        //       storage: window.sessionStorage
+        //   });
+        // }
+
+        storageCache = Cache.createInstance({
+            keyPrefix: "localStorageAuthCache",
+            storage: window.localStorage
+        });
 
         // Seta o storage
         await Auth.configure({

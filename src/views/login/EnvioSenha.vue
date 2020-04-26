@@ -31,7 +31,7 @@
             <v-form 
               ref="form"
               v-model="valid"
-              @submit.prevent="realizaLogin()"
+              @submit.prevent="enviarCodigo()"
             >
               <v-card-text>
 
@@ -77,6 +77,7 @@
 
 <script>
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import { Auth } from 'aws-amplify';
 
 export default {
   mixins: [mixinFuncoesGerais],
@@ -95,14 +96,20 @@ export default {
   }),
 
   methods: {
-    async realizaLogin() {
-      
-      this.sn_carregando_login = true;
+    async enviarCodigo() {
+      try {
 
-      // Requisição para login
-      setTimeout(() => {
-        this.mxIrPara('app');
-      }, 5000);
+        this.sn_carregando_login = true;
+
+        await Auth.forgotPassword(this.email);
+
+        // Requisição para login
+        setTimeout(() => {
+          this.mxIrPara('nova-senha');
+        }, 5000);
+      } catch(e) {
+        console.log(e);
+      }
     },
     
   }
