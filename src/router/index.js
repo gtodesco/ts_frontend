@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/home/Home.vue'
+import NotFound from '../views/not-found/NotFound.vue'
 import Login from '../views/login/Login.vue'
 import EnvioSenha from '../views/login/EnvioSenha.vue'
 import Cadastro from '../views/cadastro/Cadastro.vue'
@@ -14,7 +15,7 @@ const routes = [
   {
     path: '*', // Caminho para quando for digitado uma url que não existe
     name: 'Inexistent',
-    component: Home // Deve diretionar para uma tela de rota inválida
+    component: NotFound // Deve diretionar para uma tela de rota inválida
   },
   {
     path: '/',
