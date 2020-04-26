@@ -19,62 +19,115 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') != "" && 
+          localStorage.getItem('currentUserId') != null
+      ){
+        next('/equipes');
+      }
+      else {
+        next();
+      }
+    }
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') != "" && 
+          localStorage.getItem('currentUserId') != null
+      ){
+        next('/equipes');
+      }
+      else {
+        next();
+      }
+    }
   },
   {
     path: '/login/senha',
     name: 'Senha',
     component: EnvioSenha,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') != "" && 
+          localStorage.getItem('currentUserId') != null
+      ){
+        next('/equipes');
+      }
+      else {
+        next();
+      }
+    }
   },
   {
     path: '/cadastro',
     name: 'Cadastrar',
     component: Cadastro,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') != "" && 
+          localStorage.getItem('currentUserId') != null
+      ){
+        next('/equipes');
+      }
+      else {
+        next();
+      }
+    }
   },
   {
     path: '/nova-senha',
     name: 'Nova senha',
     component: NovaSenha,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') != "" && 
+          localStorage.getItem('currentUserId') != null
+      ){
+        next('/equipes');
+      }
+      else {
+        next();
+      }
+    }
   },
   {
     path: '/confirma-conta/:email',
     name: 'Confirma conta',
     component: ConfirmaConta,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') != "" && 
+          localStorage.getItem('currentUserId') != null
+      ){
+        next('/equipes');
+      }
+      else {
+        next();
+      }
+    }
   },
   {
     path: '/equipes',
     name: 'Equipes',
-    component: Equipes
+    component: Equipes,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') == "" || 
+          localStorage.getItem('currentUserId') == null
+      ){
+        next('/login');
+      }
+      else {
+        next();
+      }
+    }
   }
 ]
-
-// Rota /app para dentro do aplicativo???
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
-
-router.beforeEach( (to, from, next) => {
-
-    console.log(localStorage.getItem('currentUserId'));
-    console.log(localStorage.getItem('jwtToken'));
-
-    console.log('to', to);
-    console.log('from', from);
-    console.log('next', next);
-
-    next();
-
-  // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
-  // else next()
 })
 
 export default router
