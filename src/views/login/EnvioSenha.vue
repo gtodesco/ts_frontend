@@ -104,9 +104,8 @@ export default {
         await Auth.forgotPassword(this.email);
 
         // Requisição para login
-        setTimeout(() => {
-          this.mxIrPara('nova-senha');
-        }, 5000);
+        this.mxIrPara('nova-senha/' + this.email);
+
       } catch(e) {
         console.log(e);
       }

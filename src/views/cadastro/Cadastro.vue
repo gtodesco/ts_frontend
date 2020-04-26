@@ -157,9 +157,7 @@ export default {
         });
 
         // Após cadastrar, direciona para tela de confirmacao de conta
-        setTimeout(() => {
-          this.mxIrPara('confirma-conta/' + this.email);
-        }, 5000);
+        this.mxIrPara('confirma-conta/' + this.email);
       
       } catch (e) {
 

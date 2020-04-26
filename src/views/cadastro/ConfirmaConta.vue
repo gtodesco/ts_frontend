@@ -151,9 +151,7 @@ export default {
         await Auth.confirmSignUp(this.email, this.codigo);
 
         // Após confirmar, direciona para tela de login
-        setTimeout(() => {
-          this.mxIrPara('login');
-        }, 5000);
+        this.mxIrPara('login');
       
       } catch (e) {
 
@@ -189,7 +187,7 @@ export default {
   },
 
   created() {
-      this.email = this.$route.params.email
+      this.email = this.$route.params.email;
   }
 }
 </script>

@@ -31,9 +31,36 @@
             <v-form 
               ref="form"
               v-model="valid"
-              @submit.prevent="realizaCadastro()"
+              @submit.prevent="confirmaNovaSenha()"
             >
               <v-card-text>
+
+                <v-chip
+                  class="ma-2"
+                  color="green"
+                  outlined
+                  label
+                  small
+                >
+                  Verifique seu e-mail
+                </v-chip>
+
+                <v-text-field
+                  v-model="email"
+                  id="email"
+                  label="E-mail"
+                  prepend-icon="mdi-email"
+                  :rules="[rules.required, rules.email]"
+                  disabled
+                />
+
+                <v-text-field
+                  v-model="codigo"
+                  id="codigo"
+                  label="Código"
+                  prepend-icon="mdi-security"
+                  :rules="[rules.required]"
+                />
 
                 <v-text-field
                   v-model="senha"
@@ -59,6 +86,15 @@
 
               </v-card-text>
               <v-card-actions>
+                <v-btn
+                  class="ml-3" 
+                  text 
+                  small 
+                  @click="mxIrPara('login/senha')"
+                >
+                  Voltar
+                </v-btn>
+
                 <v-spacer />
 
                 <v-btn 
@@ -66,7 +102,7 @@
                   large
                   type="submit" 
                   color="primary" 
-                  :loading="sn_carregando_cadastro"
+                  :loading="sn_carregando_nova_senha"
                   :disabled="!valid"
                 >
                   Confirmar
@@ -82,24 +118,32 @@
 
 <script>
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import mixinAlert from '../../mixins/mixinAlert';
+import { Auth } from 'aws-amplify';
 
 export default {
-  mixins: [mixinFuncoesGerais],
+  mixins: [
+    mixinFuncoesGerais,
+    mixinAlert,
+  ],
 
   data: () => ({
     valid: true,
 
+    email: "",
+    codigo: "",
     senha: "",
     senha_confirma: "",
     mostrar_senha: false,
     mostrar_senha_confirma: false,
 
     rules: {
+      email: v => /.+@.+\..+/.test(v) || 'E-mail inválido',
       required: v => !!v || 'Obrigatório',
       senha: v => v.length >= 8 || 'Senha deve ter no mínimo 8 caracteres',
     },
 
-    sn_carregando_cadastro: false,
+    sn_carregando_nova_senha: false,
   }),
 
   computed: {
@@ -109,16 +153,35 @@ export default {
   },
 
   methods: {
-    async realizaCadastro() {
-      
-      this.sn_carregando_cadastro = true;
+    async confirmaNovaSenha() {
+      try {
+        
+        this.sn_carregando_nova_senha = true;
 
-      // Requisição para login
-      setTimeout(() => {
-        this.mxIrPara('app');
-      }, 5000);
+        await Auth.forgotPasswordSubmit(this.email, this.codigo, this.senha);
+
+        // Encaminha para login
+        this.mxIrPara('login');
+
+      } catch (e) {
+
+        if (e.code === "CodeMismatchException") {
+          this.mxAlertErro("Código incorreto.");
+        }
+        else if (e.code === "LimitExceededException") {
+          this.mxAlertErro("Limite de envios excedido. Tente novamente mais tarde.");
+        }
+        else {
+          this.mxAlertErroInesperado(e);
+        }
+
+        this.sn_carregando_nova_senha = false;
+      }
     },
+  },
 
-}
+  created() {
+    this.email = this.$route.params.email;
+  }
 }
 </script>

@@ -164,9 +164,7 @@ export default {
         localStorage.setItem('jwtToken', user.signInUserSession.idToken.jwtToken);
 
         // Direciona para o aplicativo
-        setTimeout(() => {
-          this.mxIrPara('equipes');
-        }, 5000);
+        this.mxIrPara('equipes');
 
       } catch(e) {
 

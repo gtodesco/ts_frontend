@@ -78,7 +78,7 @@ const routes = [
     }
   },
   {
-    path: '/nova-senha',
+    path: '/nova-senha/:email',
     name: 'Nova senha',
     component: NovaSenha,
     beforeEnter: (to, from, next) => {
