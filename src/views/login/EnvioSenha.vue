@@ -103,7 +103,7 @@ export default {
 
         await Auth.forgotPassword(this.email);
 
-        // Requisição para login
+        // Direciona para nova senha
         this.mxIrPara('nova-senha/' + this.email);
 
       } catch(e) {
