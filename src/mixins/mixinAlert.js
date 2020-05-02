@@ -38,7 +38,7 @@ const mixinAlert = {
             const retorno = await this.$swal({
                 icon: 'error',
                 title: '<strong style="font-family: Verdana, sans-serif">x ERRO x</strong>',
-                html: '<p style="font-family: Verdana, sans-serif">Ocorreu um erro inesperado.</br></br><i>' + mensagem + '</i></p>',
+                html: '<p style="font-family: Verdana, sans-serif">Ocorreu um erro inesperado.</br></br><i>' + mensagem + '</i></br></br>Entre em contato com o proprietário da aplicação.</p>',
                 showCancelButton: false,
                 confirmButtonText: '<p style="font-family: Verdana, sans-serif">OK</p>',
                 confirmButtonColor: '#3085d6',
