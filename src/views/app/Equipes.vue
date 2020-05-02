@@ -30,7 +30,7 @@ export default {
 
   async mounted() {
 
-    const equipes = await axios_ts.get('equipe');
+    const equipes = await axios_ts.get('/equipe');
     console.log(equipes);
 
   },

@@ -109,6 +109,7 @@
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import { Auth } from 'aws-amplify';
+import axios_ts from '../../axios-config';
 
 export default {
   mixins: [
@@ -148,13 +149,25 @@ export default {
         this.sn_carregando_cadastro = true;
 
         // Cadastra usuário na Amazon
-        await Auth.signUp({
+        const aws_user = await Auth.signUp({
           username: this.email,
           password: this.senha,
           attributes: {
             email: this.email
           }
         });
+
+        const new_user = await axios_ts.post('/pessoa', {
+          "nome": this.nome,
+          "email": this.email,
+          "sn_verificado": aws_user.userConfirmed,
+          "cd_amazon": aws_user.userSub,
+        });
+        
+        // Se não conseguiu cadastrar o usuário no banco da aplicação, remove ele da amazon e retorna uma exceção com mensagem amigável
+        if (!new_user.data.status) {
+          throw new_user.data.msg;
+        }
 
         // Após cadastrar, direciona para tela de confirmacao de conta
         this.mxIrPara('confirma-conta/' + this.email);
