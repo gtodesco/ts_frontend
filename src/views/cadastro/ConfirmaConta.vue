@@ -118,6 +118,7 @@
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import { Auth } from 'aws-amplify';
+import axios_ts from '../../axios-config';
 
 export default {
   mixins: [
@@ -149,6 +150,16 @@ export default {
 
         // Confirma rgistro com o código enviado por e-mail
         await Auth.confirmSignUp(this.email, this.codigo);
+
+        const update_user = await axios_ts.put('/pessoa-email', {
+          "email": this.email,
+          "sn_verificado": true,
+        });
+        
+        // Se não conseguiu alterar o usuário no banco da aplicação, retorna uma exceção com mensagem amigável
+        if (!update_user.data.status) {
+          throw update_user.data.msg;
+        }
 
         // Após confirmar, direciona para tela de login
         this.mxIrPara('login');

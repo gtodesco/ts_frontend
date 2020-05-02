@@ -164,7 +164,7 @@ export default {
           "cd_amazon": aws_user.userSub,
         });
         
-        // Se não conseguiu cadastrar o usuário no banco da aplicação, remove ele da amazon e retorna uma exceção com mensagem amigável
+        // Se não conseguiu cadastrar o usuário no banco da aplicação, retorna uma exceção com mensagem amigável
         if (!new_user.data.status) {
           throw new_user.data.msg;
         }
