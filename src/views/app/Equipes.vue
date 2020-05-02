@@ -77,6 +77,8 @@
       </v-tooltip>
     </v-card>
 
+    <CadastroEquipe v-if="show_modal_equipe" v-model='show_modal_equipe' />
+
     <!-- Modal criar equipe (terá o componente de criação de equipe dentro dela -->
     
     <!-- Modal editar perfil (terá o componente de editar perfil dentro dela) -->
@@ -88,9 +90,13 @@
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import { Auth } from 'aws-amplify';
 // import axios_ts from '../../axios-config';
+import CadastroEquipe from '../../components/CadastroEquipe'
 
 export default {
   name: 'Equipes',
+  components: {
+    CadastroEquipe
+  },
   mixins: [
     mixinFuncoesGerais
   ],
@@ -99,6 +105,7 @@ export default {
 
     item: null,
     drawer: false,
+    show_modal_equipe: false,
 
     arrEquipes: [
       {
@@ -136,7 +143,7 @@ export default {
     },
 
     async incluirEquipe() {
-      console.log('incluir equipe');
+      this.show_modal_equipe = true;
     },
 
   },
