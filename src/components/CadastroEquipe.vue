@@ -54,12 +54,20 @@
 </template>
 
 <script>
-  export default {
+import mixinFuncoesGerais from '../mixins/mixinFuncoesGerais';
+import axios_ts from '../axios-config';  
+import moment from 'moment';
+
+export default {
     model: {
         prop: 'show',
         event: 'change-show'
     },
     name: 'CadastroEquipe',
+
+    mixins: [
+        mixinFuncoesGerais
+    ],
 
     props: {
         show: {
@@ -86,14 +94,29 @@
         },
 
         async cadastrarEquipe() {
+            try {
 
-            this.sn_carregando_equipe = true;
+                this.sn_carregando_equipe = true;
 
-            setTimeout(() => {
+                const new_equipe = await axios_ts.post('/equipe', {
+                    "nome": this.nome,
+                    "dt_ativacao": this.mxGetDataBd(moment()),
+                    "sn_ativa": true,
+                    "cd_amazon": localStorage.getItem('currentUserId')
+                });
+
+                if (!new_equipe.data.status) {
+                    throw new_equipe.data.msg;
+                }
+
                 this.fecharModal();
-            }, 3000);
 
+            } catch (e) {
+
+                this.mxAlertErroInesperado(e);
+                this.sn_carregando_equipe = false;
+            }
         },
     },
-  }
+}
 </script>
