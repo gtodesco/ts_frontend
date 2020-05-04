@@ -151,14 +151,14 @@ export default {
         // Confirma rgistro com o código enviado por e-mail
         await Auth.confirmSignUp(this.email, this.codigo);
 
-        const update_user = await axios_ts.put('/pessoa-email', {
+        const retorno = await axios_ts.put('/pessoa-email', {
           "email": this.email,
           "sn_verificado": true,
         });
         
         // Se não conseguiu alterar o usuário no banco da aplicação, retorna uma exceção com mensagem amigável
-        if (!update_user.data.status) {
-          throw update_user.data.msg;
+        if (!retorno.data.status) {
+          throw retorno.data.msg;
         }
 
         // Após confirmar, direciona para tela de login

@@ -98,15 +98,15 @@ export default {
 
                 this.sn_carregando_equipe = true;
 
-                const new_equipe = await axios_ts.post('/equipe', {
+                const retorno = await axios_ts.post('/equipe', {
                     "nome": this.nome,
                     "dt_ativacao": this.mxGetDataBd(moment()),
                     "sn_ativa": true,
                     "cd_amazon": localStorage.getItem('currentUserId')
                 });
 
-                if (!new_equipe.data.status) {
-                    throw new_equipe.data.msg;
+                if (!retorno.data.status) {
+                    throw retorno.data.msg;
                 }
 
                 this.$emit('nova-equipe');

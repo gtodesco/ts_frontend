@@ -157,7 +157,7 @@ export default {
           }
         });
 
-        const new_user = await axios_ts.post('/pessoa', {
+        const retorno = await axios_ts.post('/pessoa', {
           "nome": this.nome,
           "email": this.email,
           "sn_verificado": aws_user.userConfirmed,
@@ -165,8 +165,8 @@ export default {
         });
         
         // Se não conseguiu cadastrar o usuário no banco da aplicação, retorna uma exceção com mensagem amigável
-        if (!new_user.data.status) {
-          throw new_user.data.msg;
+        if (!retorno.data.status) {
+          throw retorno.data.msg;
         }
 
         // Após cadastrar, direciona para tela de confirmacao de conta
