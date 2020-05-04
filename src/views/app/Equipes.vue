@@ -62,7 +62,6 @@
             cols="12"
           >
             <v-card 
-              :color="equipe.sn_ativa ? 'white' : 'grey lighten-2'"
               :outlined="!equipe.sn_ativa"
             >
               <div class="d-flex flex-no-wrap justify-space-between">
