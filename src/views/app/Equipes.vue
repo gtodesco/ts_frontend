@@ -55,7 +55,7 @@
       </v-navigation-drawer>
       
       <v-container>
-        <v-row>
+        <v-row v-if="!sn_carregando_equipes">
           <v-col
             v-for="(equipe, i) in arrEquipes"
             :key="i"
@@ -107,6 +107,14 @@
             </v-card>
           </v-col>
         </v-row>
+
+        <v-progress-circular
+          v-if="sn_carregando_equipes"
+          :size="50"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+
       </v-container>
 
       <v-tooltip top>
@@ -163,7 +171,10 @@ export default {
 
     item: null,
     drawer: false,
+    
     show_modal_equipe: false,
+
+    sn_carregando_equipes: false,
 
     nomePessoa: "",
     emailPessoa: "",
@@ -177,6 +188,8 @@ export default {
 
       try {
 
+        this.sn_carregando_equipes = true;
+
         const arrRetorno = await axios_ts.get('/pessoa/get-equipes-pessoa', {
           params: {
             cd_amazon: localStorage.getItem('currentUserId')
@@ -187,9 +200,12 @@ export default {
         this.emailPessoa = arrRetorno.data[0].email;
         this.arrEquipes = arrRetorno.data[0].equipes;
 
+        this.sn_carregando_equipes = false;
+
       } catch (e) {
 
         this.mxAlertErroInesperado(e);
+        this.sn_carregando_equipes = false;
       }
     },
 
