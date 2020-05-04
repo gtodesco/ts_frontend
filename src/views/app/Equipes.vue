@@ -29,7 +29,8 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>Gabriel Todesco</v-list-item-title>
+              <v-list-item-title>{{nomePessoa}}</v-list-item-title>
+              <v-list-item-subtitle>{{emailPessoa}}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
@@ -53,7 +54,60 @@
         </v-list>
       </v-navigation-drawer>
       
-      <!-- Preencher aqui as equipes -->
+      <v-container>
+        <v-row>
+          <v-col
+            v-for="(equipe, i) in arrEquipes"
+            :key="i"
+            cols="12"
+          >
+            <v-card 
+              :color="equipe.sn_ativa ? 'white' : 'grey lighten-2'"
+              :outlined="!equipe.sn_ativa"
+            >
+              <div class="d-flex flex-no-wrap justify-space-between">
+                <div>
+                  <v-card-title
+                    class="headline"
+                    v-text="equipe.nome"
+                  ></v-card-title>
+
+                  <v-card-subtitle v-if="equipe.sn_ativa" v-text="'Ativada em: ' + mxFormataDataBd(equipe.dt_ativacao)"></v-card-subtitle>
+                  <v-card-subtitle v-if="!equipe.sn_ativa" v-text="'Desativada em: ' + mxFormataDataBd(equipe.dt_desativacao)"></v-card-subtitle>
+                </div>
+
+                <div v-if="equipe.equipes_pessoas.sn_scrummaster">
+                  <v-chip
+                    class="ma-2"
+                    color="green"
+                    outlined
+                    label
+                    small
+                  >
+                    Scrum Master
+                  </v-chip>
+                </div>
+              </div>
+              <v-card-actions>
+                <v-btn
+                  v-if="equipe.sn_ativa" 
+                  color="primary" 
+                  text
+                >
+                  Entrar
+                </v-btn>
+                <v-btn
+                  v-if="!equipe.sn_ativa" 
+                  color="primary" 
+                  text
+                >
+                  Ativar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
 
       <v-tooltip top>
         <template v-slot:activator="{ on }">
@@ -77,10 +131,12 @@
       </v-tooltip>
     </v-card>
 
-    <CadastroEquipe v-if="show_modal_equipe" v-model='show_modal_equipe' />
+    <CadastroEquipe 
+      v-if="show_modal_equipe" 
+      v-model="show_modal_equipe"
+      @nova-equipe="getDados()"
+    />
 
-    <!-- Modal criar equipe (terá o componente de criação de equipe dentro dela -->
-    
     <!-- Modal editar perfil (terá o componente de editar perfil dentro dela) -->
 
   </v-content>
@@ -88,9 +144,10 @@
 
 <script>
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import mixinAlert from '../../mixins/mixinAlert';
 import { Auth } from 'aws-amplify';
-// import axios_ts from '../../axios-config';
-import CadastroEquipe from '../../components/CadastroEquipe'
+import axios_ts from '../../axios-config';
+import CadastroEquipe from '../../components/CadastroEquipe';
 
 export default {
   name: 'Equipes',
@@ -98,7 +155,8 @@ export default {
     CadastroEquipe
   },
   mixins: [
-    mixinFuncoesGerais
+    mixinFuncoesGerais,
+    mixinAlert
   ],
   
   data: () => ({
@@ -107,29 +165,33 @@ export default {
     drawer: false,
     show_modal_equipe: false,
 
-    arrEquipes: [
-      {
-        "nome": "Fênix",
-        "dt_ativacao": "25/08/2020",
-        "dt_inativacao": null,
-        "sn_ativa": true
-      },
-      {
-        "nome": "Monster",
-        "dt_ativacao": "15/02/2017",
-        "dt_inativacao": null,
-        "sn_ativa": true
-      },
-      {
-        "nome": "Gestão",
-        "dt_ativacao": "23/09/2018",
-        "dt_inativacao": "30/11/2020",
-        "sn_ativa": false
-      },
-    ],
+    nomePessoa: "",
+    emailPessoa: "",
+    arrEquipes: [],
+
   }),
 
   methods: {
+
+    async getDados() {
+
+      try {
+
+        const arrRetorno = await axios_ts.get('/pessoa/get-equipes-pessoa', {
+          params: {
+            cd_amazon: localStorage.getItem('currentUserId')
+          }
+        });
+
+        this.nomePessoa = arrRetorno.data[0].nome;
+        this.emailPessoa = arrRetorno.data[0].email;
+        this.arrEquipes = arrRetorno.data[0].equipes;
+
+      } catch (e) {
+
+        this.mxAlertErroInesperado(e);
+      }
+    },
 
     async sair() {
       await Auth.signOut();
@@ -150,10 +212,7 @@ export default {
 
   async mounted() {
 
-    // const equipes = await axios_ts.get('/equipe');
-    // console.log(equipes);
-
-    // Get usuário by amazon id
+    await this.getDados();
 
   },
 

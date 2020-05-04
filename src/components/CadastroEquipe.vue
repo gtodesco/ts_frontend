@@ -109,6 +109,8 @@ export default {
                     throw new_equipe.data.msg;
                 }
 
+                this.$emit('nova-equipe');
+
                 this.fecharModal();
 
             } catch (e) {
