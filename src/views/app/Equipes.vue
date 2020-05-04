@@ -75,10 +75,13 @@
                   <v-card-subtitle v-if="!equipe.sn_ativa" v-text="'Desativada em: ' + mxFormataDataBd(equipe.dt_desativacao)"></v-card-subtitle>
                 </div>
 
-                <div v-if="equipe.equipes_pessoas.sn_scrummaster">
+                <div 
+                  v-if="equipe.equipes_pessoas.sn_scrummaster"
+                  style="max-width: 120px;"
+                >
                   <v-chip
                     class="ma-2"
-                    color="green"
+                    :color="equipe.sn_ativa ? 'green' : 'grey lighten-1'"
                     outlined
                     label
                     small
@@ -92,13 +95,25 @@
                   v-if="equipe.sn_ativa" 
                   color="primary" 
                   text
+                  @click="entrar(equipe.id)"
                 >
                   Entrar
                 </v-btn>
                 <v-btn
-                  v-if="!equipe.sn_ativa" 
+                  v-if="equipe.sn_ativa && equipe.equipes_pessoas.sn_scrummaster" 
+                  color="error" 
+                  text
+                  @click="alteraStatusEquipe(equipe.id, equipe.sn_ativa)"
+                  :loading="sn_alterando_status_equipe"
+                >
+                  Desativar
+                </v-btn>
+                <v-btn
+                  v-if="!equipe.sn_ativa && equipe.equipes_pessoas.sn_scrummaster" 
                   color="primary" 
                   text
+                  @click="alteraStatusEquipe(equipe.id, equipe.sn_ativa)"
+                  :loading="sn_alterando_status_equipe"
                 >
                   Ativar
                 </v-btn>
@@ -154,7 +169,8 @@ import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import { Auth } from 'aws-amplify';
 import axios_ts from '../../axios-config';
-import CadastroEquipe from '../../components/CadastroEquipe';
+import CadastroEquipe from '../../components/CadastroEquipe'; 
+import moment from 'moment';
 
 export default {
   name: 'Equipes',
@@ -174,6 +190,7 @@ export default {
     show_modal_equipe: false,
 
     sn_carregando_equipes: false,
+    sn_alterando_status_equipe: false,
 
     nomePessoa: "",
     emailPessoa: "",
@@ -208,15 +225,59 @@ export default {
       }
     },
 
+    async alteraStatusEquipe(equipe_id, status) {
+      try {
+
+        this.sn_alterando_status_equipe = true;
+
+        let objEquipe = {
+          'id': equipe_id,
+          'sn_ativa': !status
+        }
+
+        /**
+         * Se o status atual for ativa, significa que vai desativar a equipe. 
+         * Com isso, deve enviar a data de desativacao para a API
+         * Se o status atual for inativa, significa que vai ativar.
+         * Com isso, deve enviar a data de ativação para API e apagar a data de desativação
+         */ 
+        if (status == true) {
+          objEquipe['dt_desativacao'] = this.mxGetDataBd(moment());
+        }
+        else if (status == false) {
+          objEquipe['dt_ativacao'] = this.mxGetDataBd(moment());
+          objEquipe['dt_desativacao'] = null;
+        }
+
+        const retorno = await axios_ts.put('/equipe', objEquipe);
+
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.sn_alterando_status_equipe = false;
+
+        this.getDados();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_alterando_status_equipe = false;
+      }
+    },
+
+    async entrar(equipe_id) {
+      console.log(equipe_id);
+    } ,
+
+    async editarPerfil() {
+      console.log('editar perfil');
+    },
+
     async sair() {
       await Auth.signOut();
       localStorage.removeItem('currentUserId');
       localStorage.removeItem('jwtToken');
       this.mxIrPara('login');
-    },
-
-    async editarPerfil() {
-      console.log('editar perfil');
     },
 
     async incluirEquipe() {
@@ -226,9 +287,7 @@ export default {
   },
 
   async mounted() {
-
     await this.getDados();
-
   },
 
 };
