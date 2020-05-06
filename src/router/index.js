@@ -8,6 +8,7 @@ import Cadastro from '../views/cadastro/Cadastro.vue'
 import NovaSenha from '../views/cadastro/NovaSenha.vue'
 import ConfirmaConta from '../views/cadastro/ConfirmaConta.vue'
 import Equipes from '../views/app/Equipes.vue'
+import Main from '../views/app/Main.vue'
 
 Vue.use(VueRouter)
 
@@ -112,6 +113,22 @@ const routes = [
     path: '/equipes',
     name: 'Equipes',
     component: Equipes,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('currentUserId') == "" || 
+          localStorage.getItem('currentUserId') == null
+      ){
+        next('/login');
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/main/:equipe_id',
+    name: 'Main',
+    component: Main,
+    props: true,
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem('currentUserId') == "" || 
           localStorage.getItem('currentUserId') == null

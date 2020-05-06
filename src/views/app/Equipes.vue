@@ -266,8 +266,8 @@ export default {
     },
 
     async entrar(equipe_id) {
-      console.log(equipe_id);
-    } ,
+      this.mxIrPara('main/' + equipe_id);
+    },
 
     async editarPerfil() {
       console.log('editar perfil');
