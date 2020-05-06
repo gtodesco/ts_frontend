@@ -8,6 +8,7 @@
       <v-app-bar
         color="primary"
         dark
+        app
       >
         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
         <v-toolbar-title>Equipes</v-toolbar-title>
@@ -15,7 +16,7 @@
 
       <v-navigation-drawer
         v-model="drawer"
-        absolute
+        app
         temporary
       >
         <v-list
@@ -37,12 +38,6 @@
           <v-divider></v-divider>
 
           <v-list-item-group v-model="item">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title @click="editarPerfil()">Perfil</v-list-item-title>
-            </v-list-item>
             <v-list-item @click="sair()" color="red">
               <v-list-item-icon>
                 <v-icon color="red">mdi-logout</v-icon>
@@ -266,17 +261,15 @@ export default {
     },
 
     async entrar(equipe_id) {
-      this.mxIrPara('main/' + equipe_id);
-    },
-
-    async editarPerfil() {
-      console.log('editar perfil');
+      localStorage.setItem('team', equipe_id);
+      this.mxIrPara('main');
     },
 
     async sair() {
       await Auth.signOut();
       localStorage.removeItem('currentUserId');
       localStorage.removeItem('jwtToken');
+      localStorage.removeItem('team');
       this.mxIrPara('login');
     },
 

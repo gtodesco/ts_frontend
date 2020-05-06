@@ -125,10 +125,9 @@ const routes = [
     }
   },
   {
-    path: '/main/:equipe_id',
+    path: '/main',
     name: 'Main',
     component: Main,
-    props: true,
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem('currentUserId') == "" || 
           localStorage.getItem('currentUserId') == null
