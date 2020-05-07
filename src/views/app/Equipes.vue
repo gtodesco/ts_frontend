@@ -117,12 +117,14 @@
           </v-col>
         </v-row>
 
-        <v-progress-circular
-          v-if="sn_carregando_equipes"
-          :size="50"
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
+        <v-row v-if="sn_carregando_equipes" justify="center" align="center">
+          <v-progress-circular
+            v-if="sn_carregando_equipes"
+            :size="60"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+        </v-row>
 
       </v-container>
 

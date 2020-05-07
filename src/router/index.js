@@ -12,7 +12,7 @@ import Main from '../views/app/Main.vue'
 import Atividades from '../views/app/Atividades.vue'
 import Dashboard from '../views/app/Dashboard.vue'
 import Impedimentos from '../views/app/Impedimentos.vue'
-import Membros from '../views/app/Membros.vue'
+import Time from '../views/app/Time.vue'
 import Retrospectivas from '../views/app/Retrospectivas.vue'
 import Sprints from '../views/app/Sprints.vue'
 import TiposAtividade from '../views/app/TiposAtividade.vue'
@@ -137,6 +137,7 @@ const routes = [
     children: [
       { 
         path: '', 
+        name:'Main',
         component: Dashboard,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
@@ -151,7 +152,8 @@ const routes = [
       },
       { 
         path: 'dashboard', 
-        component: Dashboard ,
+        name:'Dashboard',
+        component: Dashboard,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
@@ -165,7 +167,8 @@ const routes = [
       },
       { 
         path: 'atividades', 
-        component: Atividades ,
+        name:'Atividades',
+        component: Atividades,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
@@ -179,7 +182,8 @@ const routes = [
       },
       { 
         path: 'impedimentos', 
-        component: Impedimentos ,
+        name:'Impedimentos',
+        component: Impedimentos,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
@@ -192,8 +196,9 @@ const routes = [
         }
       },
       { 
-        path: 'membros', 
-        component: Membros ,
+        path: 'time', 
+        name:'Times',
+        component: Time,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
@@ -206,8 +211,9 @@ const routes = [
         }
       },
       { 
-        path: 'retrospectivas', 
-        component: Retrospectivas ,
+        path: 'retrospectivas',
+        name:'Retrospectivas', 
+        component: Retrospectivas,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
@@ -221,7 +227,8 @@ const routes = [
       },
       { 
         path: 'sprints', 
-        component: Sprints ,
+        name:'Sprints',
+        component: Sprints,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
@@ -235,7 +242,8 @@ const routes = [
       },
       { 
         path: 'tipos-atividade', 
-        component: TiposAtividade ,
+        name:'TiposAtividade',
+        component: TiposAtividade,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null
