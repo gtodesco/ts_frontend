@@ -101,7 +101,7 @@
             dark
         >
             <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-            <v-toolbar-title>Team Stats</v-toolbar-title>
+            <v-toolbar-title>{{nomeEquipe}}</v-toolbar-title>
         </v-app-bar>
 
         <v-content>
@@ -138,6 +138,7 @@ export default {
 
       sn_carregando_pessoa: false,
 
+      nomeEquipe: '',  
       nomePessoa: '',
       emailPessoa: '',
 
@@ -145,7 +146,7 @@ export default {
 
   methods: {
 
-    async getDadosUsuario() {
+    async getDados() {
 
         try {
 
@@ -159,6 +160,14 @@ export default {
 
             this.nomePessoa = arrRetorno.data[0].nome;
             this.emailPessoa = arrRetorno.data[0].email;
+
+            const arrRetornoEquipes = await axios_ts.get('/equipe/pessoa', {
+                params: {
+                    equipe_id: localStorage.getItem('team')
+                }
+            });
+
+            this.nomeEquipe = arrRetornoEquipes.data.nome;
 
             this.sn_carregando_pessoa = false;
 
@@ -180,7 +189,7 @@ export default {
   },
 
   async mounted() {
-        await this.getDadosUsuario();
+        await this.getDados();
   },
 
 };
