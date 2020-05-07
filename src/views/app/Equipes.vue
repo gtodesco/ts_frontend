@@ -90,7 +90,7 @@
                   v-if="equipe.sn_ativa" 
                   color="primary" 
                   text
-                  @click="entrar(equipe.id)"
+                  @click="entrar(equipe.id, equipe.equipes_pessoas.sn_scrummaster)"
                 >
                   Entrar
                 </v-btn>
@@ -260,8 +260,9 @@ export default {
       }
     },
 
-    async entrar(equipe_id) {
+    async entrar(equipe_id, sn_scrummaster) {
       localStorage.setItem('team', equipe_id);
+      localStorage.setItem('scm', sn_scrummaster);
       this.mxIrPara('main');
     },
 
@@ -270,6 +271,7 @@ export default {
       localStorage.removeItem('currentUserId');
       localStorage.removeItem('jwtToken');
       localStorage.removeItem('team');
+      localStorage.removeItem('scm');
       this.mxIrPara('login');
     },
 
