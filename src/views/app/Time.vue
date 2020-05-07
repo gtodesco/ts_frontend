@@ -90,6 +90,7 @@
           v-on="on"
           color="primary"
           style="margin-bottom: 80px; margin-right: 20px;"
+          @click="show_modal_pessoa = true"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -97,24 +98,53 @@
       <span>Adicionar pessoa</span>
     </v-tooltip>
 
+    <BuscaPessoaPorEmail 
+      v-if="show_modal_pessoa" 
+      v-model="show_modal_pessoa"
+      @buscou-pessoa="addPessoa($event)"
+    />
+
+    <v-snackbar
+      v-model="sn_mostra_pessoa_existente"
+      :timeout="4000"
+      color="error"
+    >
+      Pessoa já faz parte da equipe.
+      <v-btn
+        color="white"
+        text
+        @click="sn_mostra_pessoa_existente = false"
+      >
+        Fechar
+      </v-btn>
+    </v-snackbar>
+
   </v-container>
     
 </template>
 
 <script>
+import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
+import BuscaPessoaPorEmail from '../../components/BuscaPessoaPorEmail'; 
 
 export default {
   name: 'Time',
-
+  components: {
+    BuscaPessoaPorEmail
+  },
   mixins: [
+    mixinFuncoesGerais,
     mixinAlert
   ],
 
   data: () => ({
 
     sn_carregando_pessoas: false,
+    sn_mostra_pessoa_existente: false,
+
+    show_modal_pessoa: false,
 
     nomeEquipe: "",
     arrPessoas: [],
@@ -150,6 +180,46 @@ export default {
         this.sn_carregando_pessoas = false;
       }
 
+    },
+
+    async addPessoa(pessoa) {
+
+      try {
+
+        this.sn_carregando_pessoas = true;
+
+        let pessoaExistente = false;
+
+        // Verifica se a pessoa já existe nessa equipe
+        this.arrPessoas.forEach((objPessoa) => {
+          if (objPessoa.id == pessoa.id) {
+            pessoaExistente = true;
+            return;
+          }
+        });
+
+        if (!pessoaExistente) {
+          const retorno = await axios_ts.post('/equipe/pessoa', {
+            'equipe_id': localStorage.getItem('team'),
+            'pessoa_id': pessoa.id,
+            'sn_scrummaster': false,
+          });
+
+          if (!retorno.data.status) {
+              throw retorno.data.msg;
+          }
+
+          this.getDados();
+        }
+        else {
+          this.sn_carregando_pessoas = false;
+          this.sn_mostra_pessoa_existente = true;
+        }
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_carregando_pessoas = false;
+      }
     },
 
   },
