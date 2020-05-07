@@ -29,6 +29,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="removePessoa(pessoa.id)"
                 >
                   <v-icon color="error">mdi-account-remove-outline</v-icon>
                 </v-btn>
@@ -222,13 +223,35 @@ export default {
       }
     },
 
+    async removePessoa(pessoa_id) {
+      try {
+
+        this.sn_carregando_pessoas = true;
+
+        const retorno = await axios_ts.delete('/equipe/pessoa', {
+          data: {
+            'equipe_id': localStorage.getItem('team'),
+            'pessoa_id': pessoa_id
+          }
+        });
+
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.getDados();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_carregando_pessoas = false;
+      }
+    }
+
   },
 
   async mounted() {
     await this.getDados();
   }
-
-
 
 }
 </script>
