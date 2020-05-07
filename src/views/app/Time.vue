@@ -11,9 +11,12 @@
         v-for="(pessoa, i) in arrPessoas"
         :key="i"
         cols="12"
-        md="4"
+        md="3"
       >
-        <v-card>
+        <v-card 
+          class="mx-auto"
+          outlined 
+        >
 
           <v-card-title
             v-text="pessoa.nome"
@@ -22,20 +25,6 @@
           <v-card-subtitle v-text="pessoa.email"></v-card-subtitle>
 
           <v-card-actions v-if="sn_scrummaster">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  dark
-                  large
-                  v-on="on"
-                  @click="removePessoa(pessoa)"
-                >
-                  <v-icon color="error">mdi-account-remove-outline</v-icon>
-                </v-btn>
-              </template>
-              <span>Remover pessoa</span>
-            </v-tooltip>
 
             <v-tooltip bottom v-if="pessoa.equipes_pessoas.sn_scrummaster">
               <template v-slot:activator="{ on }">
@@ -66,6 +55,22 @@
               </template>
               <span>Tornar Scrum Master</span>
             </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  dark
+                  large
+                  v-on="on"
+                  @click="removePessoa(pessoa)"
+                >
+                  <v-icon color="error">mdi-account-remove-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>Remover pessoa</span>
+            </v-tooltip>
+
           </v-card-actions>
         </v-card>
       </v-col>
