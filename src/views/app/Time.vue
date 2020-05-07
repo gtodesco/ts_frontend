@@ -29,7 +29,7 @@
                   dark
                   large
                   v-on="on"
-                  @click="removePessoa(pessoa.id)"
+                  @click="removePessoa(pessoa)"
                 >
                   <v-icon color="error">mdi-account-remove-outline</v-icon>
                 </v-btn>
@@ -37,13 +37,14 @@
               <span>Remover pessoa</span>
             </v-tooltip>
 
-            <v-tooltip bottom v-if="pessoa.equipes_pessoas.sn_scrummaster" >
+            <v-tooltip bottom v-if="pessoa.equipes_pessoas.sn_scrummaster">
               <template v-slot:activator="{ on }">
                 <v-btn
                   icon
                   dark
                   large
                   v-on="on"
+                  @click="setPessoaScrumMaster(pessoa)"
                 >
                   <v-icon color="primary">mdi-star-off</v-icon>
                 </v-btn>
@@ -51,13 +52,14 @@
               <span>Retirar Scrum Master</span>
             </v-tooltip>
             
-            <v-tooltip bottom v-if="!pessoa.equipes_pessoas.sn_scrummaster" >
+            <v-tooltip bottom v-if="!pessoa.equipes_pessoas.sn_scrummaster">
               <template v-slot:activator="{ on }">
                 <v-btn
                   icon
                   dark
                   large
                   v-on="on"
+                  @click="setPessoaScrumMaster(pessoa)"
                 >
                   <v-icon color="primary">mdi-star-outline</v-icon>
                 </v-btn>
@@ -207,7 +209,7 @@ export default {
           });
 
           if (!retorno.data.status) {
-              throw retorno.data.msg;
+            throw retorno.data.msg;
           }
 
           this.getDados();
@@ -223,7 +225,7 @@ export default {
       }
     },
 
-    async removePessoa(pessoa_id) {
+    async removePessoa(pessoa) {
       try {
 
         this.sn_carregando_pessoas = true;
@@ -231,12 +233,17 @@ export default {
         const retorno = await axios_ts.delete('/equipe/pessoa', {
           data: {
             'equipe_id': localStorage.getItem('team'),
-            'pessoa_id': pessoa_id
+            'pessoa_id': pessoa.id
           }
         });
 
         if (!retorno.data.status) {
             throw retorno.data.msg;
+        }
+
+        // Se a pessoa for scrummaster e se remover da equipe, deve enviá-lo para tela de equipes
+        if (pessoa.cd_amazon == localStorage.getItem('currentUserId')) {
+          this.mxIrPara('equipes');
         }
 
         this.getDados();
@@ -245,7 +252,32 @@ export default {
         this.mxAlertErroInesperado(e);
         this.sn_carregando_pessoas = false;
       }
-    }
+    },
+
+    async setPessoaScrumMaster(pessoa) {
+      try {
+
+          const retorno = await axios_ts.post('/equipe/pessoa', {
+            'equipe_id': localStorage.getItem('team'),
+            'pessoa_id': pessoa.id,
+            'sn_scrummaster': !pessoa.equipes_pessoas.sn_scrummaster,
+          });
+
+          if (!retorno.data.status) {
+            throw retorno.data.msg;
+          }
+
+          // Se a pessoa for scrummaster e se tirar o privilégio, deve atualiar no storage
+          if (pessoa.cd_amazon == localStorage.getItem('currentUserId')) {
+            localStorage.setItem('scm', !this.sn_scrummaster);
+          }
+
+          this.getDados();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+      }
+    },
 
   },
 
