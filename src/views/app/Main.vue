@@ -30,43 +30,43 @@
 
                     <v-divider></v-divider>
 
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/dashboard')">
                         <v-list-item-icon>
                             <v-icon>mdi-view-dashboard-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Dashboard</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/membros')">
                         <v-list-item-icon>
                             <v-icon>mdi-account-group-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Membros</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/atividades')">
                         <v-list-item-icon>
                             <v-icon>mdi-card-text-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Atividades</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/sprints')">
                         <v-list-item-icon>
                             <v-icon>mdi-calendar-month-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Sprints</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/impedimentos')">
                         <v-list-item-icon>
                             <v-icon>mdi-clock-alert-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Impedimentos</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/retrospectivas')">
                         <v-list-item-icon>
                             <v-icon>mdi-calendar-clock</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Retrospectivas</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click="mxIrPara('main/tipos-atividade')">
                         <v-list-item-icon>
                             <v-icon>mdi-tag-multiple-outline</v-icon>
                         </v-list-item-icon>
@@ -108,7 +108,7 @@
 
             <v-container fluid>
 
-            <!-- <router-view></router-view> -->
+            <router-view></router-view>
             </v-container>
         </v-content>
 

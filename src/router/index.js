@@ -9,6 +9,13 @@ import NovaSenha from '../views/cadastro/NovaSenha.vue'
 import ConfirmaConta from '../views/cadastro/ConfirmaConta.vue'
 import Equipes from '../views/app/Equipes.vue'
 import Main from '../views/app/Main.vue'
+import Atividades from '../views/app/Atividades.vue'
+import Dashboard from '../views/app/Dashboard.vue'
+import Impedimentos from '../views/app/Impedimentos.vue'
+import Membros from '../views/app/Membros.vue'
+import Retrospectivas from '../views/app/Retrospectivas.vue'
+import Sprints from '../views/app/Sprints.vue'
+import TiposAtividade from '../views/app/TiposAtividade.vue'
 
 Vue.use(VueRouter)
 
@@ -126,8 +133,121 @@ const routes = [
   },
   {
     path: '/main',
-    name: 'Main',
     component: Main,
+    children: [
+      { 
+        path: '', 
+        component: Dashboard,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        } 
+      },
+      { 
+        path: 'dashboard', 
+        component: Dashboard ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'atividades', 
+        component: Atividades ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'impedimentos', 
+        component: Impedimentos ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'membros', 
+        component: Membros ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'retrospectivas', 
+        component: Retrospectivas ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'sprints', 
+        component: Sprints ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'tipos-atividade', 
+        component: TiposAtividade ,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+    ],
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem('currentUserId') == "" || 
           localStorage.getItem('currentUserId') == null
