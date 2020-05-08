@@ -192,7 +192,7 @@ export default {
 
       // Se for editar, passa os valores atuais do registro para o componente
       if (this.sn_editar_registro) {
-        this.objTipoAtividade = tipoAtividade;
+        this.objTipoAtividade = {...tipoAtividade};
       }
       else {
         this.objTipoAtividade = {
