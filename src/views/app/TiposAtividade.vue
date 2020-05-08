@@ -124,7 +124,11 @@ export default {
 
         this.sn_carregando_tipos_atividade = true;
 
-        const arrRetorno = await axios_ts.get('/tipo-atividade');
+        const arrRetorno = await axios_ts.get('/tipo-atividade', {
+            params: {
+                equipe_id: localStorage.getItem('team')
+            }
+        });
 
         this.arrTiposAtividades = arrRetorno.data;
 
