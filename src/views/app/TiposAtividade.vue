@@ -39,6 +39,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="abrirModal(true, tipo_atividade)"
                 >
                   <v-icon color="primary">mdi-pencil-outline</v-icon>
                 </v-btn>
@@ -53,6 +54,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="remover(tipo_atividade.id)"
                 >
                   <v-icon color="error">mdi-delete-forever-outline</v-icon>
                 </v-btn>
@@ -86,12 +88,21 @@
           v-on="on"
           color="primary"
           style="margin-bottom: 80px; margin-right: 20px;"
+          @click="abrirModal(false)"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
-      <span>Adicionar tipo de atividade</span>
+      <span>Incluir</span>
     </v-tooltip>
+
+    <CadastroTipoAtividade 
+      v-if="show_modal_cadastro" 
+      v-model="show_modal_cadastro"
+      :sn-editar="sn_editar_registro"
+      :obj-tipo-atividade="objTipoAtividade"
+      @salvou-tipo-atividade="getDados()"
+    />
 
   </v-container>
 
@@ -100,10 +111,13 @@
 <script>
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
+import CadastroTipoAtividade from '../../components/CadastroTipoAtividade'; 
 
 export default {
   name: 'TiposAtividade',
-
+  components: {
+    CadastroTipoAtividade
+  },
   mixins: [
     mixinAlert
   ],
@@ -111,6 +125,11 @@ export default {
   data: () => ({
     
     sn_carregando_tipos_atividade: false,
+
+    show_modal_cadastro: false,
+    sn_editar_registro: false,
+
+    objTipoAtividade: {},
 
     arrTiposAtividades: [],
 
@@ -141,6 +160,51 @@ export default {
       }
 
     },
+
+    async remover(id) {
+
+      try {
+
+        this.sn_carregando_tipos_atividade = true;
+
+        const retorno = await axios_ts.delete('/tipo-atividade', {
+          data: {
+            'id': id
+          }
+        });
+
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.getDados();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_carregando_tipos_atividade = false;
+      }
+
+    },
+
+    abrirModal: function(sn_editar, tipoAtividade = null) {
+
+      this.sn_editar_registro = sn_editar;
+
+      // Se for editar, passa os valores atuais do registro para o componente
+      if (this.sn_editar_registro) {
+        this.objTipoAtividade = tipoAtividade;
+      }
+      else {
+        this.objTipoAtividade = {
+          'id': null,
+          'descricao': '',
+          'color': '',
+        };
+      }
+
+      this.show_modal_cadastro = true;
+
+    }
 
   },
 
