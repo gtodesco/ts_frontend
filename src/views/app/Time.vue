@@ -100,7 +100,7 @@
           style="margin-bottom: 80px; margin-right: 20px;"
           @click="show_modal_pessoa = true"
         >
-          <v-icon>mdi-plus</v-icon>
+          <v-icon>mdi-account-plus</v-icon>
         </v-btn>
       </template>
       <span>Adicionar pessoa</span>
