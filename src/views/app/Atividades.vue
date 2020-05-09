@@ -66,6 +66,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="abrirModal(true, atividade)"
                 >
                   <v-icon color="primary">mdi-eye-outline</v-icon>
                 </v-btn>
@@ -128,12 +129,21 @@
           v-on="on"
           color="primary"
           style="margin-bottom: 80px; margin-right: 20px;"
+          @click="abrirModal(false)"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
       <span>Incluir</span>
     </v-tooltip>
+
+    <CadastroAtividade 
+      v-if="show_modal_cadastro" 
+      v-model="show_modal_cadastro"
+      :sn-editar="sn_editar_registro"
+      :obj-atividade="objAtividade"
+      @salvou-atividade="getAtividades()"
+    />
 
   </v-container>
 </template>
@@ -142,9 +152,13 @@
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import CadastroAtividade from '../../components/CadastroAtividade'; 
 
 export default {
   name: 'Atividades',
+  components: {
+    CadastroAtividade
+  },
   mixins: [
     mixinFuncoesGerais,
     mixinAlert
@@ -153,6 +167,11 @@ export default {
   data: () => ({
     
     sn_carregando_atividade: false,
+
+    show_modal_cadastro: false,
+    sn_editar_registro: false,
+
+    objAtividade: {},
 
     arrTiposAtividades: [],
     arrAtividades: [],
@@ -208,6 +227,30 @@ export default {
         this.sn_carregando_atividade = false;
       }
     },
+
+    abrirModal: function(sn_editar, atividade = null) {
+
+      this.sn_editar_registro = sn_editar;
+
+      // Se for editar, passa os valores atuais do registro para o componente
+      if (this.sn_editar_registro) {
+        this.objAtividade = {...atividade};
+      }
+      else {
+        this.objAtividade = {
+            'tipo_id': null,
+            'titulo': '',
+            'descricao': '',
+            'prioridade': 1,
+            'horas_previsto': '',
+            'horas_realizado': null
+        };
+      }
+
+      this.show_modal_cadastro = true;
+
+    },
+
 
   },
 

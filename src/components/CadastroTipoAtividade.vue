@@ -72,7 +72,7 @@ export default {
         prop: 'show',
         event: 'change-show'
     },
-    name: 'CadastroEquipe',
+    name: 'CadastroTipoAtividade',
 
     mixins: [
         mixinFuncoesGerais
