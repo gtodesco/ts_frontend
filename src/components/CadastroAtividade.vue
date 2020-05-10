@@ -40,6 +40,7 @@
                         <v-col cols="12" sm="12" md="2">
                             <v-text-field 
                                 v-model="objAtividade.horas_previsto"
+                                type="time"
                                 label="Previsto"
                                 :rules="[rules.required]"
                             />
@@ -47,6 +48,7 @@
                         <v-col cols="12" sm="12" md="2">
                             <v-text-field 
                                 v-model="objAtividade.horas_realizado"
+                                type="time"
                                 label="Realizado"
                             />
                         </v-col>
@@ -192,23 +194,31 @@ export default {
         async salvarAtividade() {
             try {
 
-                this.sn_carregando_tipo_de_atividade = true;
+                this.sn_carregando_atividade = true;
 
                 let retorno = null;
 
                 // Envia objetos diferentes dependendo da operação
                 if (this.snEditar) {
-                    retorno = await axios_ts.put('/s', {
-                        "id": this.objAtividade.id,
-                        "descricao": this.objAtividade.descricao,
-                        "color": this.objAtividade.color
+                    retorno = await axios_ts.put('/atividade', {
+                        'id': this.objAtividade.id,
+                        'tipo_id': this.objAtividade.tipo_id,
+                        'titulo': this.objAtividade.titulo,
+                        'descricao': this.objAtividade.descricao,
+                        'prioridade': this.objAtividade.prioridade,
+                        'horas_previsto': this.objAtividade.horas_previsto,
+                        'horas_realizado': this.objAtividade.horas_realizado
                     });
                 }
                 else {
-                    retorno = await axios_ts.post('/s', {
-                        "equipe_id": localStorage.getItem('team'),
-                        "descricao": this.objAtividade.descricao,
-                        "color": this.objAtividade.color
+                    retorno = await axios_ts.post('/atividade', {
+                        'equipe_id': localStorage.getItem('team'),
+                        'tipo_id': this.objAtividade.tipo_id,
+                        'titulo': this.objAtividade.titulo,
+                        'descricao': this.objAtividade.descricao,
+                        'prioridade': this.objAtividade.prioridade,
+                        'horas_previsto': this.objAtividade.horas_previsto,
+                        'horas_realizado': this.objAtividade.horas_realizado
                     });
                 }
 
@@ -216,14 +226,14 @@ export default {
                     throw retorno.data.msg;
                 }
 
-                this.$emit('salvou-tipo-atividade');
+                this.$emit('salvou-atividade');
 
                 this.fecharModal();
 
             } catch (e) {
 
                 this.mxAlertErroInesperado(e);
-                this.sn_carregando_tipo_de_atividade = false;
+                this.sn_carregando_atividade = false;
             }
         },
     },
