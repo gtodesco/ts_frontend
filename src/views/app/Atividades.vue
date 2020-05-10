@@ -233,6 +233,12 @@ export default {
 
       try {
 
+        const confirmacao = await this.mxAlertConfirma('Deseja mesmo excluir esta atividade?');
+
+        if (!confirmacao) {
+          return;
+        }
+
         this.sn_carregando_atividade = true;
 
         const retorno = await axios_ts.delete('/atividade', {
