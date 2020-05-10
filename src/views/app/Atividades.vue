@@ -95,6 +95,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="remover(atividade.id)"
                 >
                   <v-icon color="error">mdi-delete-forever-outline</v-icon>
                 </v-btn>
@@ -226,6 +227,31 @@ export default {
         this.mxAlertErroInesperado(e);
         this.sn_carregando_atividade = false;
       }
+    },
+
+    async remover(id) {
+
+      try {
+
+        this.sn_carregando_atividade = true;
+
+        const retorno = await axios_ts.delete('/atividade', {
+          data: {
+            'id': id
+          }
+        });
+
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.getAtividades();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_carregando_atividade = false;
+      }
+
     },
 
     abrirModal: function(sn_editar, atividade = null) {
