@@ -46,7 +46,7 @@ const mixinFuncoesGerais = {
          */
         mxFormataTimeBd: function (time) {
             if (time == null) {
-                return;
+                return '00:00';
             }
 
             const split = time.split(':');
