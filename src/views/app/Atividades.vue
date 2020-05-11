@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <h1 class="headline">Atividades</h1>
+    <h1 class="headline">Atividades planejadas</h1>
 
     <br>
 
@@ -81,6 +81,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="adicionarSprintAtual(atividade.id)"
                 >
                   <v-icon color="primary">mdi-calendar-plus</v-icon>
                 </v-btn>
@@ -247,6 +248,42 @@ export default {
           }
         });
 
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.getAtividades();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_carregando_atividade = false;
+      }
+
+    },
+
+    async adicionarSprintAtual(id) {
+
+      try {
+      
+        this.sn_carregando_atividade = true;
+
+        let retorno = await axios_ts.get('/sprint-ativa');
+
+        if (retorno.data.length == 0) {
+          await this.mxAlertErro('Não existe uma sprint ativa no momento.');
+          this.sn_carregando_atividade = false;
+          return;
+        }
+
+        const sprint_atual = retorno.data[0];
+
+        // Cadastra a atividade no Backlog da sprint atual
+        retorno = await axios_ts.put('/atividade', {
+          'id': id,
+          'sprint_id': sprint_atual.id,
+          'status_id': 1
+        });
+      
         if (!retorno.data.status) {
             throw retorno.data.msg;
         }
