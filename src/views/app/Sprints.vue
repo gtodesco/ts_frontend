@@ -58,6 +58,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="fecharSprint(sprint.id)"
                 >
                   <v-icon color="primary">mdi-calendar-check-outline</v-icon>
                 </v-btn>
@@ -181,6 +182,29 @@ export default {
 
       this.show_modal_cadastro = true;
 
+    },
+
+    async fecharSprint(id) {
+      try {
+
+          this.sn_carregando_sprints = true;
+
+          const retorno = await axios_ts.put('/sprint', {
+              "id": id,
+              "sn_ativa": false,
+          });
+
+          if (!retorno.data.status) {
+              throw retorno.data.msg;
+          }
+
+          this.getSprints();
+
+      } catch (e) {
+
+          this.mxAlertErroInesperado(e);
+          this.sn_carregando_sprints = false;
+      }
     },
 
   },
