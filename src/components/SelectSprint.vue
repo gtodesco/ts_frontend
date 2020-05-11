@@ -79,6 +79,7 @@ export default {
     watch: {
         sprint: function(val) {
             this.sprint_selecionada = val;
+            this.selecionaSprint();
         }
     },
 
