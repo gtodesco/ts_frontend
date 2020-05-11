@@ -44,6 +44,7 @@
                   dark
                   large
                   v-on="on"
+                  @click="abrirModal(true, sprint)"
                 >
                   <v-icon color="primary">mdi-calendar-edit</v-icon>
                 </v-btn>
@@ -90,12 +91,21 @@
           v-on="on"
           color="primary"
           style="margin-bottom: 80px; margin-right: 20px;"
+          @click="abrirModal(false)"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
       <span>Incluir</span>
     </v-tooltip>
+
+    <CadastroSprint 
+      v-if="show_modal_cadastro" 
+      v-model="show_modal_cadastro"
+      :sn-editar="sn_editar_registro"
+      :obj-sprint="objSprint"
+      @salvou-atividade="getSprints()"
+    />
 
   </v-container>
 </template>
@@ -104,9 +114,13 @@
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import CadastroSprint from '../../components/CadastroSprint'; 
 
 export default {
   name: 'Sprints',
+  components: {
+    CadastroSprint
+  },
   mixins: [
     mixinFuncoesGerais,
     mixinAlert
@@ -116,7 +130,12 @@ export default {
     
     sn_carregando_sprints: false,
 
+    show_modal_cadastro: false,
+    sn_editar_registro: false,
+
     arrSprints: [],
+
+    objSprint: {},
 
   }),
 
@@ -142,6 +161,26 @@ export default {
         this.mxAlertErroInesperado(e);
         this.sn_carregando_sprints = false;
       }
+    },
+
+    abrirModal: function(sn_editar, sprint = null) {
+
+      this.sn_editar_registro = sn_editar;
+
+      // Se for editar, passa os valores atuais do registro para o componente
+      if (this.sn_editar_registro) {
+        this.objSprint = {...sprint};
+      }
+      else {
+        this.objSprint = {
+          'numero': '',
+          'dt_inicio': '',
+          'dt_fim': '',
+        };
+      }
+
+      this.show_modal_cadastro = true;
+
     },
 
   },
