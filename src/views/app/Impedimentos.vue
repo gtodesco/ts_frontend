@@ -29,7 +29,11 @@
           :items="arrImpedimentos"
           :items-per-page="10"
           class="elevation-1"
-        ></v-data-table>
+        >
+          <template v-slot:no-data>
+            Sem informações.
+          </template>
+        </v-data-table>
         <!-- locale="pt-BR" -->
       </v-col>
     </v-row>
