@@ -19,7 +19,6 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="12">
-                            Sprint 
                             <v-text-field 
                                 v-model="objSprint.numero"
                                 label="Número"
