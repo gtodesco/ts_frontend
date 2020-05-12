@@ -168,7 +168,7 @@ export default {
         const arrRetorno = await axios_ts.get('/impedimento/get-impedimentos-sprint', {
           params: {
             sprint_id: this.sprint_selecionada,
-            }
+          }
         });
         
         this.arrImpedimentos = arrRetorno.data;
