@@ -21,7 +21,7 @@
                 </v-list-item>
 
                 <v-list-item-group v-model="item">
-                    <v-list-item>
+                    <v-list-item @click="editarPefil()">
                         <v-list-item-icon>
                             <v-icon>mdi-account-edit-outline</v-icon>
                         </v-list-item-icon>
@@ -108,9 +108,27 @@
 
             <v-container fluid>
 
-            <router-view></router-view>
+                <router-view v-show="!sn_carregando_pessoa"></router-view>
+
+                <v-row v-if="sn_carregando_pessoa" justify="center" align="center">
+                <v-progress-circular
+                    v-if="sn_carregando_pessoa"
+                    :size="60"
+                    color="primary"
+                    indeterminate
+                ></v-progress-circular>
+                </v-row>
+
             </v-container>
         </v-content>
+
+        <Perfil
+            v-if="sn_mostrar_modal_perfil" 
+            v-model="sn_mostrar_modal_perfil"
+            :nome="nomePessoa"
+            :email="emailPessoa"
+            @salvou-perfil="getDados()"
+        />
 
     </v-app>
 </template>
@@ -120,6 +138,7 @@ import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import { Auth } from 'aws-amplify';
 import axios_ts from '../../axios-config';
+import Perfil from '../../components/Perfil';
 
 export default {
   name: 'Main',
@@ -127,7 +146,9 @@ export default {
       mixinFuncoesGerais,
       mixinAlert
   ],
-
+  components: {
+    Perfil
+  },
   props: {
   },
   
@@ -137,6 +158,8 @@ export default {
       item: null,
 
       sn_carregando_pessoa: false,
+
+      sn_mostrar_modal_perfil: false,
 
       nomeEquipe: '',  
       nomePessoa: '',
@@ -176,6 +199,10 @@ export default {
             this.sn_carregando_pessoa = false;
         }
 
+    },
+
+    async editarPefil() {
+        this.sn_mostrar_modal_perfil = true;
     },
 
     async sair() {
