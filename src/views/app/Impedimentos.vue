@@ -34,7 +34,7 @@
             <v-icon
               small
               class="mr-2"
-              @click="console.log(item)"
+              @click="abrirModal(true, item)"
             >
               mdi-pencil
             </v-icon>
@@ -70,7 +70,7 @@
       ></v-progress-circular>
     </v-row>
 
-    <v-tooltip top>
+    <v-tooltip top v-if="sprint_selecionada != null">
       <template v-slot:activator="{ on }">
         <v-btn
           absolute
@@ -83,6 +83,7 @@
           v-on="on"
           color="primary"
           style="margin-bottom: 80px; margin-right: 20px;"
+          @click="abrirModal(false)"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -90,26 +91,42 @@
       <span>Incluir</span>
     </v-tooltip>
 
+    <CadastroImpedimento 
+      v-if="show_modal_cadastro" 
+      v-model="show_modal_cadastro"
+      :sn-editar="sn_editar_registro"
+      :obj-impedimento="objImpedimento"
+      :sprint="sprint_selecionada"
+      @salvou-impedimento="getImpedimentos()"
+    />
+
   </v-container>
 </template>
 
 <script>
 import axios_ts from '../../axios-config';
-import SelectSprint from '../../components/SelectSprint'; 
+import SelectSprint from '../../components/SelectSprint';
+import CadastroImpedimento from '../../components/CadastroImpedimento';  
 
 export default {
   name: 'Impedimentos',
   components: {
-    SelectSprint
+    SelectSprint,
+    CadastroImpedimento
   },
 
   data: () => ({
 
     sn_carregando_impedimentos: false,
 
+    show_modal_cadastro: false,
+    sn_editar_registro: false,
+
     sprint_selecionada: null,
 
     arrImpedimentos: [],
+
+    objImpedimento: {},
 
     headers: [
       {
@@ -127,7 +144,7 @@ export default {
         value: 'horas' 
       },
       { 
-        text: 'Actions', 
+        text: 'Ações', 
         value: 'actions', 
         sortable: false 
       },
@@ -137,7 +154,6 @@ export default {
   }),
 
   methods: {
-
     
     async getImpedimentos() {
       
@@ -212,6 +228,25 @@ export default {
         this.mxAlertErroInesperado(e);
         this.sn_carregando_impedimentos = false;
       }
+
+    },
+
+    abrirModal: function(sn_editar, impedimento = null) {
+
+      this.sn_editar_registro = sn_editar;
+
+      // Se for editar, passa os valores atuais do registro para o componente
+      if (this.sn_editar_registro) {
+        this.objImpedimento = {...impedimento};
+      }
+      else {
+        this.objImpedimento = {
+            'descricao': '',
+            'horas': '',
+        };
+      }
+
+      this.show_modal_cadastro = true;
 
     },
   },
