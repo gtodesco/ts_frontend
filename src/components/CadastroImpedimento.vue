@@ -21,7 +21,7 @@
                         <v-col cols="12" sm="12">
                             <v-text-field 
                                 v-model="objImpedimento.descricao"
-                                label="Número"
+                                label="Descrição"
                                 :rules="[rules.required]"
                             />
                         </v-col>
