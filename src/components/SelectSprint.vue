@@ -5,7 +5,6 @@
         :menu-props="{ offsetY: true }"
         item-text="numero"
         item-value="id"
-        clearable
         label="Sprint"
         :loading="sn_carregando_sprint"
         @change="selecionaSprint()"
