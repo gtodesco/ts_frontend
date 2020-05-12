@@ -66,6 +66,7 @@
 <script>
 import mixinFuncoesGerais from '../mixins/mixinFuncoesGerais';
 import axios_ts from '../axios-config';  
+import mixinAlert from '../mixins/mixinAlert';
 
 export default {
     model: {
@@ -75,7 +76,8 @@ export default {
     name: 'CadastroTipoAtividade',
 
     mixins: [
-        mixinFuncoesGerais
+        mixinFuncoesGerais,
+        mixinAlert
     ],
 
     props: {
