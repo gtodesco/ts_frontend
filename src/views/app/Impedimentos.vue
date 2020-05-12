@@ -30,6 +30,21 @@
           :items-per-page="10"
           class="elevation-1"
         >
+          <template v-slot:item.actions="{ item }">
+            <v-icon
+              small
+              class="mr-2"
+              @click="console.log(item)"
+            >
+              mdi-pencil
+            </v-icon>
+            <v-icon
+              small
+              @click="remover(item)"
+            >
+              mdi-delete
+            </v-icon>
+          </template>
           <template v-slot:no-data>
             Sem informações.
           </template>
@@ -111,6 +126,11 @@ export default {
         text: 'Horas', 
         value: 'horas' 
       },
+      { 
+        text: 'Actions', 
+        value: 'actions', 
+        sortable: false 
+      },
     ]
 
 
@@ -168,6 +188,31 @@ export default {
         this.mxAlertErroInesperado(e);
         this.sn_carregando_impedimentos = false;
       }
+    },
+
+    async remover(impedimento) {
+
+      try {
+
+        this.sn_carregando_impedimentos = true;
+
+        const retorno = await axios_ts.delete('/impedimento', {
+          data: {
+            'id': impedimento.id
+          }
+        });
+
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.getImpedimentos();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
+        this.sn_carregando_impedimentos = false;
+      }
+
     },
   },
 
