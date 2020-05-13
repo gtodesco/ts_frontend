@@ -280,20 +280,18 @@ export default {
       
         this.sn_carregando_atividade = true;
 
-        let retorno = await axios_ts.get('/sprint-ativa');
+        const sprint_ativa = await this.mxGetSprintAtual();
 
-        if (retorno.data.length == 0) {
+        if (sprint_ativa == null) {
           await this.mxAlertErro('Não existe uma sprint ativa no momento.');
           this.sn_carregando_atividade = false;
           return;
         }
 
-        const sprint_atual = retorno.data[0];
-
         // Cadastra a atividade no Backlog da sprint atual
-        retorno = await axios_ts.put('/atividade', {
+        const retorno = await axios_ts.put('/atividade', {
           'id': id,
-          'sprint_id': sprint_atual.id,
+          'sprint_id': sprint_ativa,
           'status_id': 1
         });
       
