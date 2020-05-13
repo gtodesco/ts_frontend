@@ -75,6 +75,7 @@
                         dark
                         large
                         v-on="on"
+                        @click="retirarAtividade(atividade.id)"
                       >
                         <v-icon color="error">mdi-calendar-remove</v-icon>
                       </v-btn>
@@ -161,6 +162,28 @@ export default {
       } catch(e) {
         this.mxAlertErroInesperado(e);
         this.sn_carregando_dashboard = false;
+      }
+
+    },
+
+    async retirarAtividade(id) {
+
+      try {
+
+        const retorno = await axios_ts.put('/atividade', {
+            id: id,
+            sprint_id: null,
+            status_id: null
+        });
+
+        if (!retorno.data.status) {
+            throw retorno.data.msg;
+        }
+
+        this.getDados();
+
+      } catch(e) {
+        this.mxAlertErroInesperado(e);
       }
 
     },
