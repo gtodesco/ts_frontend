@@ -166,7 +166,7 @@ export default {
                     throw retorno.data.msg;
                 }
 
-                this.$emit('salvou-atividade');
+                this.$emit('salvou-sprint');
 
                 this.fecharModal();
 

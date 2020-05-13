@@ -118,7 +118,7 @@
       v-model="show_modal_cadastro"
       :sn-editar="sn_editar_registro"
       :obj-sprint="objSprint"
-      @salvou-atividade="getSprints()"
+      @salvou-sprint="getSprints()"
     />
 
   </v-container>
