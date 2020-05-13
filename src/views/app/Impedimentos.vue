@@ -107,6 +107,8 @@
 import axios_ts from '../../axios-config';
 import SelectSprint from '../../components/SelectSprint';
 import CadastroImpedimento from '../../components/CadastroImpedimento';  
+import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import mixinAlert from '../../mixins/mixinAlert';
 
 export default {
   name: 'Impedimentos',
@@ -114,6 +116,11 @@ export default {
     SelectSprint,
     CadastroImpedimento
   },
+
+  mixins: [
+    mixinFuncoesGerais,
+    mixinAlert
+  ],
 
   data: () => ({
 
@@ -187,16 +194,7 @@ export default {
       
         this.sn_carregando_impedimentos = true;
 
-        const retorno = await axios_ts.get('/sprint-ativa');
-
-        if (retorno.data.length == 0) {
-          this.sn_carregando_impedimentos = false;
-          return;
-        }
-
-        const sprint_atual = retorno.data[0];
-
-        this.sprint_selecionada = sprint_atual.id;
+        this.sprint_selecionada = await this.mxGetSprintAtual();
 
         this.sn_carregando_impedimentos = false;
 

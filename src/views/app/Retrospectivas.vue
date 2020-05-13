@@ -81,12 +81,14 @@
 <script>
 import axios_ts from '../../axios-config';
 import SelectSprint from '../../components/SelectSprint';
+import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 
 export default {
   name: 'Retrospectivas',
 
   mixins: [
+    mixinFuncoesGerais,
     mixinAlert
   ],
 
@@ -100,12 +102,7 @@ export default {
 
     sprint_selecionada: null,
 
-    objRetrospectiva: {
-      id: '',
-      start: '',
-      stop: '',
-      continuar: ''
-    }
+    objRetrospectiva: {}
 
   }),
 
@@ -165,16 +162,7 @@ export default {
       
         this.sn_carregando_retrospectiva = true;
 
-        const retorno = await axios_ts.get('/sprint-ativa');
-
-        if (retorno.data.length == 0) {
-          this.sn_carregando_retrospectiva = false;
-          return;
-        }
-
-        const sprint_atual = retorno.data[0];
-
-        this.sprint_selecionada = sprint_atual.id;
+        this.sprint_selecionada = await this.mxGetSprintAtual();
 
         this.sn_carregando_retrospectiva = false;
 
@@ -187,6 +175,13 @@ export default {
   },
 
   async mounted() {
+    this.objRetrospectiva = {
+      id: '',
+      start: '',
+      stop: '',
+      continuar: ''
+    };
+
     await this.getSprintAtual();
   }
 
