@@ -7,8 +7,20 @@
     <br>
 
     <v-row v-if="!sn_carregando_tipos_atividade">
-
+      <v-col 
+        v-if="arrTiposAtividades.length == 0"
+        cols="12" 
+        sm="12"
+      >
+        <v-alert 
+          type="info"
+          text
+        >
+          Sem tipos de atividade
+        </v-alert>
+      </v-col>
       <v-col
+        v-else-if="arrTiposAtividades.length > 0"
         v-for="(tipo_atividade, i) in arrTiposAtividades"
         :key="i"
         cols="12"

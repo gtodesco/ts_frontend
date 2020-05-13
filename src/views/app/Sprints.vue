@@ -6,7 +6,20 @@
     <br>
 
     <v-row v-if="!sn_carregando_sprints">
+      <v-col 
+        v-if="arrSprints.length == 0"
+        cols="12" 
+        sm="12"
+      >
+        <v-alert 
+          type="info"
+          text
+        >
+          Sem sprints
+        </v-alert>
+      </v-col>
       <v-col
+        v-else-if="arrSprints.length > 0"
         v-for="(sprint, i) in arrSprints"
         :key="i"
         cols="12"

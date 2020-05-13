@@ -12,82 +12,90 @@
           cols="12"
           md="2"
         >
-            <v-expansion-panel>
-              <v-expansion-panel-header>{{status.descricao}}</v-expansion-panel-header>
-              <v-expansion-panel-content>
-                  <v-card
-                    class="mx-auto mt-2"
-                    outlined
-                    v-for="(atividade, i) in status.atividades"
-                    :key="i"
-                  >
-                    <v-list-item>
-                      <v-list-item-content>
-                        <div class="mb-2" style="text-align: right;">
-                          <v-chip
-                            :color="atividade.tipos_atividade.color"
-                            label
-                            x-small
-                            dark
-                          >
-                            {{atividade.tipos_atividade.descricao}}
-                          </v-chip>
-                        </div>
-                        <div class="overline mb-2">
-                          P: {{mxFormataTimeBd(atividade.horas_previsto)}} | R: {{mxFormataTimeBd(atividade.horas_realizado)}}
-                        </div>
-                        <h4>{{atividade.titulo}}</h4>
-                        <v-list-item-subtitle>{{atividade.descricao}}</v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
+          <v-expansion-panel>
+            <v-expansion-panel-header>{{status.descricao}}</v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-alert 
+                  v-if="status.atividades.length == 0"
+                  color="grey"
+                  text
+                >
+                  Sem atividades
+                </v-alert>
+                <v-card
+                  v-else-if="status.atividades.length > 0"
+                  class="mx-auto mt-2"
+                  outlined
+                  v-for="(atividade, i) in status.atividades"
+                  :key="i"
+                >
+                  <v-list-item>
+                    <v-list-item-content>
+                      <div class="mb-2" style="text-align: right;">
+                        <v-chip
+                          :color="atividade.tipos_atividade.color"
+                          label
+                          x-small
+                          dark
+                        >
+                          {{atividade.tipos_atividade.descricao}}
+                        </v-chip>
+                      </div>
+                      <div class="overline mb-2">
+                        P: {{mxFormataTimeBd(atividade.horas_previsto)}} | R: {{mxFormataTimeBd(atividade.horas_realizado)}}
+                      </div>
+                      <h4>{{atividade.titulo}}</h4>
+                      <v-list-item-subtitle>{{atividade.descricao}}</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
 
-                    <v-card-actions>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            icon
-                            dark
-                            large
-                            v-on="on"
-                          >
-                            <v-icon color="primary">mdi-eye-outline</v-icon>
-                          </v-btn>
-                        </template>
-                        <span>Visualizar</span>
-                      </v-tooltip>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            icon
-                            dark
-                            large
-                            v-on="on"
-                          >
-                            <v-icon color="error">mdi-calendar-remove</v-icon>
-                          </v-btn>
-                        </template>
-                        <span>Retirar da Sprint</span>
-                      </v-tooltip>   
+                  <v-card-actions>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          dark
+                          large
+                          v-on="on"
+                        >
+                          <v-icon color="primary">mdi-eye-outline</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Visualizar</span>
+                    </v-tooltip>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          dark
+                          large
+                          v-on="on"
+                        >
+                          <v-icon color="error">mdi-calendar-remove</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Retirar da Sprint</span>
+                    </v-tooltip>   
 
-                      <v-spacer/>               
+                    <v-spacer/>               
 
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            icon
-                            dark
-                            large
-                            v-on="on"
-                          >
-                            <v-icon color="primary">mdi-send-outline</v-icon>
-                          </v-btn>
-                        </template>
-                        <span>Mover para</span>
-                      </v-tooltip>                      
-                    </v-card-actions>
-                  </v-card>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          dark
+                          large
+                          v-on="on"
+                        >
+                          <v-icon color="primary">mdi-send-outline</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Mover para</span>
+                    </v-tooltip>                      
+                  </v-card-actions>
+                </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
         </v-col>
       </v-expansion-panels>
     </v-row>
