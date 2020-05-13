@@ -94,7 +94,6 @@ export default {
         },
         sprint: {
             type: Number,
-            require,
         }
     },
 
