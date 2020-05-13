@@ -77,6 +77,22 @@
                             </v-select>
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="12">
+                            <v-select
+                                v-model="objAtividade.pessoas"
+                                :items="arrPessoas"
+                                :menu-props="{ offsetY: true }"
+                                item-text="nome"
+                                item-value="id"
+                                label="Membros"
+                                multiple
+                                chips
+                                :loading="sn_carregando_pessoas"
+                            >
+                            </v-select>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-card-text>
             <v-card-actions>
@@ -107,6 +123,7 @@
 <script>
 import mixinFuncoesGerais from '../mixins/mixinFuncoesGerais';
 import axios_ts from '../axios-config';  
+import mixinAlert from '../mixins/mixinAlert';
 
 export default {
     model: {
@@ -116,7 +133,8 @@ export default {
     name: 'CadastroAtividade',
 
     mixins: [
-        mixinFuncoesGerais
+        mixinFuncoesGerais,
+        mixinAlert
     ],
 
     props: {
@@ -137,6 +155,7 @@ export default {
         valid: true,    
 
         sn_carregando_tipo_de_atividade: false,
+        sn_carregando_pessoas: false,
 
         sn_carregando_atividade: false,
 
@@ -160,6 +179,8 @@ export default {
         ],
 
         arrTiposAtividades: [],
+
+        arrPessoas: [],
     }),
 
     methods: {
@@ -184,6 +205,21 @@ export default {
 
                 this.mxAlertErroInesperado(e);
                 this.sn_carregando_tipo_de_atividade = false;
+            }
+        },
+
+        async getPessoas() {
+            try {
+
+                this.sn_carregando_pessoas = true;
+
+                this.arrPessoas = await this.mxGetPessoasEquipe();
+
+                this.sn_carregando_pessoas = false;
+
+            } catch (e) {
+                this.mxAlertErroInesperado(e);
+                this.sn_carregando_pessoas = false;
             }
         },
 
@@ -240,6 +276,7 @@ export default {
 
     async mounted() {
         await this.getTiposAtividades();
+        await this.getPessoas();
     }
 }
 </script>

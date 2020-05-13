@@ -73,6 +73,20 @@ const mixinFuncoesGerais = {
 
             return retorno.data[0].id;
         },
+
+        /**
+         * Método que retorna as pessoas da equipe
+         */
+        async mxGetPessoasEquipe() {
+        
+            const retorno = await axios_ts.get('/equipe/pessoa', {
+                params: {
+                    equipe_id: localStorage.getItem('team')
+                }
+            });
+
+            return retorno.data.pessoas;
+        },
           
     }
 }

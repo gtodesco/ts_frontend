@@ -323,7 +323,8 @@ export default {
             'descricao': '',
             'prioridade': 1,
             'horas_previsto': '',
-            'horas_realizado': null
+            'horas_realizado': null,
+            'pessoas': []
         };
       }
 
