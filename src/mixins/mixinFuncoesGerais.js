@@ -1,3 +1,5 @@
+import axios_ts from '../axios-config';
+
 const mixinFuncoesGerais = {
     methods: {
 
@@ -53,6 +55,25 @@ const mixinFuncoesGerais = {
 
             return split[0] + ':' + split[1];
         },
+
+        /**
+         * Método que retorna o id da sprint atual
+         */
+        async mxGetSprintAtual() {
+        
+            const retorno = await axios_ts.get('/sprint-ativa', {
+                params: {
+                    equipe_id: localStorage.getItem('team')
+                }
+            });
+
+            if (retorno.data.length == 0) {
+                return null;
+            }
+
+            return retorno.data[0].id;
+        },
+          
     }
 }
 
