@@ -21,6 +21,7 @@
         </template>
         <v-date-picker 
           v-model="date" 
+          scrollable
           no-title 
           @input="menu1 = false"
           locale="pt-br"
@@ -62,9 +63,9 @@ export default {
         }
     },
 
-    data: vm => ({
-      date: new Date().toISOString().substr(0, 10),
-      dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+    data: () => ({
+      date: '',
+      dateFormatted: '',
       menu1: false,
     }),
 
