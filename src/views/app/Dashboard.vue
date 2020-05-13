@@ -2,7 +2,10 @@
   <v-container fluid>
 
     <v-row v-if="!sn_carregando_dashboard">
-      <v-expansion-panels multiple :value="[0, 1, 2, 3, 4, 5]">
+      <v-expansion-panels 
+        multiple
+        :value="[0, 1, 2, 3, 4, 5]"
+      >
         <v-col
           v-for="(status, i) in arrStatus"
           :key="i"
@@ -13,27 +16,28 @@
               <v-expansion-panel-header>{{status.descricao}}</v-expansion-panel-header>
               <v-expansion-panel-content>
                   <v-card
-                    class="mx-auto"
-                    max-width="344"
+                    class="mx-auto mt-2"
                     outlined
+                    v-for="(atividade, i) in status.atividades"
+                    :key="i"
                   >
                     <v-list-item>
                       <v-list-item-content>
                         <div class="mb-2" style="text-align: right;">
                           <v-chip
-                            :color="'primary'"
+                            :color="atividade.tipos_atividade.color"
                             label
                             x-small
                             dark
                           >
-                            Feature
+                            {{atividade.tipos_atividade.descricao}}
                           </v-chip>
                         </div>
-                        <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
-                        <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>
-                        <div class="overline mt-4">
-                          P: 04:00 | R: 02:00
+                        <div class="overline mb-2">
+                          P: {{mxFormataTimeBd(atividade.horas_previsto)}} | R: {{mxFormataTimeBd(atividade.horas_realizado)}}
                         </div>
+                        <h4>{{atividade.titulo}}</h4>
+                        <v-list-item-subtitle>{{atividade.descricao}}</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
 
@@ -78,7 +82,7 @@
                             <v-icon color="primary">mdi-send-outline</v-icon>
                           </v-btn>
                         </template>
-                        <span>Enviar para</span>
+                        <span>Mover para</span>
                       </v-tooltip>                      
                     </v-card-actions>
                   </v-card>
@@ -129,7 +133,13 @@ export default {
 
         this.sn_carregando_dashboard = true;
 
-        const retorno = await axios_ts.get('/status');
+        const sprint_atual = await this.mxGetSprintAtual();
+
+        const retorno = await axios_ts.get('/status-atividades', {
+            params: {
+                sprint_id: sprint_atual == null ? 0 : sprint_atual // Precisa enviar como 0, pois null o axios remove dos params
+            }
+        });
 
         this.arrStatus = retorno.data;
 
@@ -141,6 +151,7 @@ export default {
       }
 
     },
+
 
   },
 
