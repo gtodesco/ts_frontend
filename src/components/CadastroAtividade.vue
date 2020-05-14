@@ -36,7 +36,7 @@
                             ></v-textarea>
                         </v-col>
                     </v-row>
-                    <v-row>
+                    <v-row style="margin-top: -15px">
                         <v-col cols="12" sm="12" md="2">
                             <v-text-field 
                                 v-model="objAtividade.horas_previsto"
@@ -87,6 +87,7 @@
                                 item-value="id"
                                 label="Membros"
                                 multiple
+                                deletable-chips
                                 chips
                                 :loading="sn_carregando_pessoas"
                             >
@@ -243,7 +244,8 @@ export default {
                         'descricao': this.objAtividade.descricao,
                         'prioridade': this.objAtividade.prioridade,
                         'horas_previsto': this.objAtividade.horas_previsto,
-                        'horas_realizado': this.objAtividade.horas_realizado
+                        'horas_realizado': this.objAtividade.horas_realizado,
+                        'pessoas': this.objAtividade.pessoas
                     });
                 }
                 else {
@@ -254,7 +256,8 @@ export default {
                         'descricao': this.objAtividade.descricao,
                         'prioridade': this.objAtividade.prioridade,
                         'horas_previsto': this.objAtividade.horas_previsto,
-                        'horas_realizado': this.objAtividade.horas_realizado
+                        'horas_realizado': this.objAtividade.horas_realizado,
+                        'pessoas': this.objAtividade.pessoas
                     });
                 }
 
