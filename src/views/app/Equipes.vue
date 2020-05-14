@@ -51,7 +51,20 @@
       
       <v-container>
         <v-row v-if="!sn_carregando_equipes">
+          <v-col 
+            v-if="arrEquipes.length == 0"
+            cols="12" 
+            sm="12"
+          >
+            <v-alert 
+              type="info"
+              text
+            >
+              Você não pertence à nenhuma equipe. Cadastre uma agora mesmo!
+            </v-alert>
+          </v-col>
           <v-col
+            v-else-if="arrEquipes.length > 0"
             v-for="(equipe, i) in arrEquipes"
             :key="i"
             cols="12"
