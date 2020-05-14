@@ -20,7 +20,7 @@
                     <v-row>
                         <v-col cols="12" sm="6" md="12">
                             <v-text-field 
-                                v-model="nome"
+                                v-model="objEquipe.nome"
                                 label="Nome"
                                 :rules="[rules.required]"
                             />
@@ -73,6 +73,13 @@ export default {
         show: {
             type: Boolean,
             default: false
+        },
+        snEditar: {
+            type: Boolean,
+            default: false,
+        },
+        objEquipe: {
+            type: Object
         }
     },
 
@@ -80,8 +87,6 @@ export default {
         valid: true,    
 
         sn_carregando_equipe: false,
-
-        nome: "",
 
         rules: {
             required: v => !!v || 'Obrigatório',
@@ -98,18 +103,30 @@ export default {
 
                 this.sn_carregando_equipe = true;
 
-                const retorno = await axios_ts.post('/equipe', {
-                    "nome": this.nome,
-                    "dt_ativacao": this.mxGetDataBd(moment()),
-                    "sn_ativa": true,
-                    "cd_amazon": localStorage.getItem('currentUserId')
-                });
+
+                let retorno = null;
+
+                // Envia objetos diferentes dependendo da operação
+                if (this.snEditar) {
+                    retorno = await axios_ts.put('/equipe', {
+                        "id": this.objEquipe.id,
+                        "nome": this.objEquipe.nome
+                    });
+                }
+                else {
+                    retorno = await axios_ts.post('/equipe', {
+                        "nome": this.objEquipe.nome,
+                        "dt_ativacao": this.mxGetDataBd(moment()),
+                        "sn_ativa": true,
+                        "cd_amazon": localStorage.getItem('currentUserId')
+                    });
+                }
 
                 if (!retorno.data.status) {
                     throw retorno.data.msg;
                 }
 
-                this.$emit('nova-equipe');
+                this.$emit('salvou-equipe');
 
                 this.fecharModal();
 

@@ -108,6 +108,14 @@
                   Entrar
                 </v-btn>
                 <v-btn
+                  v-if="equipe.equipes_pessoas.sn_scrummaster" 
+                  color="primary" 
+                  text
+                  @click="abrirModal(true, equipe)"
+                >
+                  Editar
+                </v-btn>
+                <v-btn
                   v-if="equipe.sn_ativa && equipe.equipes_pessoas.sn_scrummaster" 
                   color="error" 
                   text
@@ -152,7 +160,7 @@
             v-on="on"
             color="primary"
             style="margin-bottom: 80px; margin-right: 20px;"
-            @click="incluirEquipe()"
+            @click="abrirModal(false)"
           >
             <v-icon>mdi-plus</v-icon>
           </v-btn>
@@ -164,7 +172,9 @@
     <CadastroEquipe 
       v-if="show_modal_equipe" 
       v-model="show_modal_equipe"
-      @nova-equipe="getDados()"
+      :sn-editar="sn_editar_registro"
+      :obj-equipe="objEquipe"
+      @salvou-equipe="getDados()"
     />
 
     <!-- Modal editar perfil (terá o componente de editar perfil dentro dela) -->
@@ -196,6 +206,7 @@ export default {
     drawer: false,
     
     show_modal_equipe: false,
+    sn_editar_registro: false,
 
     sn_carregando_equipes: false,
 
@@ -287,9 +298,24 @@ export default {
       this.mxIrPara('login');
     },
 
-    async incluirEquipe() {
+    abrirModal: function(sn_editar, equipe = null) {
+
+      this.sn_editar_registro = sn_editar;
+
+      // Se for editar, passa os valores atuais do registro para o componente
+      if (this.sn_editar_registro) {
+        this.objEquipe = {...equipe};
+      }
+      else {
+        this.objEquipe = {
+          'id': null,
+          'nome': ''
+        };
+      }
+
       this.show_modal_equipe = true;
-    },
+
+    }
 
   },
 
