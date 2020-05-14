@@ -99,6 +99,7 @@
                         dark
                         large
                         v-on="on"
+                        @click="abrirModalMover(atividade)"
                       >
                         <v-icon color="primary">mdi-send-outline</v-icon>
                       </v-btn>
@@ -131,6 +132,13 @@
       @salvou-atividade="getDados()"
     />
 
+    <MoverAtividade
+      v-if="show_modal_mover"
+      v-model="show_modal_mover"
+      :atividade="atividade_selecionada"
+      @moveu-atividade="getDados()"
+    />
+
   </v-container>
 </template>
 
@@ -139,6 +147,7 @@ import axios_ts from '../../axios-config';
 import mixinAlert from '../../mixins/mixinAlert';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import CadastroAtividade from '../../components/CadastroAtividade';
+import MoverAtividade from '../../components/MoverAtividade';
 
 export default {
   name: 'Dashboard',
@@ -149,7 +158,8 @@ export default {
   ],
 
   components: {
-    CadastroAtividade
+    CadastroAtividade,
+    MoverAtividade
   },
 
   data: () => ({
@@ -157,9 +167,11 @@ export default {
     sn_carregando_dashboard: false,
 
     show_modal_cadastro: false,
+    show_modal_mover: false,
     sn_editar_registro: false,
 
     status_selecionado: null,
+    atividade_selecionada: null,
 
     objAtividade: {},
 
@@ -241,6 +253,10 @@ export default {
 
     },
 
+    async abrirModalMover (atividade) {
+      this.atividade_selecionada = atividade;
+      this.show_modal_mover = true;
+    },
 
   },
 
