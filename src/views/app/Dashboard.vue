@@ -15,7 +15,13 @@
           <v-expansion-panel>
             <v-expansion-panel-header>{{status.descricao}}</v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-btn block tile outlined color="success">
+              <v-btn 
+                block 
+                tile 
+                outlined 
+                color="success"
+                @click="abrirModal(false, status.id)"
+              >
                 <v-icon left>mdi-plus</v-icon> 
                 Atividade
               </v-btn>
@@ -62,6 +68,7 @@
                         dark
                         large
                         v-on="on"
+                        @click="abrirModal(true, status.id, atividade)"
                       >
                         <v-icon color="primary">mdi-eye-outline</v-icon>
                       </v-btn>
@@ -115,6 +122,15 @@
       ></v-progress-circular>
     </v-row>
 
+    <CadastroAtividade 
+      v-if="show_modal_cadastro" 
+      v-model="show_modal_cadastro"
+      :sn-editar="sn_editar_registro"
+      :obj-atividade="objAtividade"
+      :status="status_selecionado"
+      @salvou-atividade="getDados()"
+    />
+
   </v-container>
 </template>
 
@@ -122,6 +138,7 @@
 import axios_ts from '../../axios-config';
 import mixinAlert from '../../mixins/mixinAlert';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
+import CadastroAtividade from '../../components/CadastroAtividade';
 
 export default {
   name: 'Dashboard',
@@ -131,9 +148,20 @@ export default {
     mixinAlert
   ],
 
+  components: {
+    CadastroAtividade
+  },
+
   data: () => ({
 
     sn_carregando_dashboard: false,
+
+    show_modal_cadastro: false,
+    sn_editar_registro: false,
+
+    status_selecionado: null,
+
+    objAtividade: {},
 
     arrStatus: false,
 
@@ -185,6 +213,31 @@ export default {
       } catch(e) {
         this.mxAlertErroInesperado(e);
       }
+
+    },
+
+    async abrirModal (sn_editar, status, atividade = null) {
+
+      this.sn_editar_registro = sn_editar;
+      this.status_selecionado = status;
+
+      // Se for editar, passa os valores atuais do registro para o componente
+      if (this.sn_editar_registro) {
+        this.objAtividade = {...atividade};
+      }
+      else {
+        this.objAtividade = {
+            'tipo_id': null,
+            'titulo': '',
+            'descricao': '',
+            'prioridade': 1,
+            'horas_previsto': '',
+            'horas_realizado': null,
+            'pessoas': []
+        };
+      }
+
+      this.show_modal_cadastro = true;
 
     },
 

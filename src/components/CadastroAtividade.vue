@@ -149,6 +149,10 @@ export default {
         },
         objAtividade: {
             type: Object
+        },
+        status: {
+            type: Number,
+            default: null
         }
     },
 
@@ -235,30 +239,33 @@ export default {
 
                 let retorno = null;
 
+                let objDataAtividade = {
+                    'tipo_id': this.objAtividade.tipo_id,
+                    'titulo': this.objAtividade.titulo,
+                    'descricao': this.objAtividade.descricao,
+                    'prioridade': this.objAtividade.prioridade,
+                    'horas_previsto': this.objAtividade.horas_previsto,
+                    'horas_realizado': this.objAtividade.horas_realizado,
+                    'pessoas': this.objAtividade.pessoas,
+                }
+
                 // Envia objetos diferentes dependendo da operação
                 if (this.snEditar) {
-                    retorno = await axios_ts.put('/atividade', {
-                        'id': this.objAtividade.id,
-                        'tipo_id': this.objAtividade.tipo_id,
-                        'titulo': this.objAtividade.titulo,
-                        'descricao': this.objAtividade.descricao,
-                        'prioridade': this.objAtividade.prioridade,
-                        'horas_previsto': this.objAtividade.horas_previsto,
-                        'horas_realizado': this.objAtividade.horas_realizado,
-                        'pessoas': this.objAtividade.pessoas
-                    });
+
+                    objDataAtividade['id'] = this.objAtividade.id;
+
+                    retorno = await axios_ts.put('/atividade', objDataAtividade);
                 }
                 else {
-                    retorno = await axios_ts.post('/atividade', {
-                        'equipe_id': localStorage.getItem('team'),
-                        'tipo_id': this.objAtividade.tipo_id,
-                        'titulo': this.objAtividade.titulo,
-                        'descricao': this.objAtividade.descricao,
-                        'prioridade': this.objAtividade.prioridade,
-                        'horas_previsto': this.objAtividade.horas_previsto,
-                        'horas_realizado': this.objAtividade.horas_realizado,
-                        'pessoas': this.objAtividade.pessoas
-                    });
+
+                    if (this.status != null) {
+                        objDataAtividade['status_id'] = this.status;
+                        objDataAtividade['sprint_id'] = await this.mxGetSprintAtual();
+                    }
+
+                    objDataAtividade['equipe_id'] = localStorage.getItem('team');
+
+                    retorno = await axios_ts.post('/atividade', objDataAtividade);
                 }
 
                 if (!retorno.data.status) {
