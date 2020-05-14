@@ -112,7 +112,6 @@
                   color="error" 
                   text
                   @click="alteraStatusEquipe(equipe.id, equipe.sn_ativa)"
-                  :loading="sn_alterando_status_equipe"
                 >
                   Desativar
                 </v-btn>
@@ -121,7 +120,6 @@
                   color="primary" 
                   text
                   @click="alteraStatusEquipe(equipe.id, equipe.sn_ativa)"
-                  :loading="sn_alterando_status_equipe"
                 >
                   Ativar
                 </v-btn>
@@ -200,7 +198,6 @@ export default {
     show_modal_equipe: false,
 
     sn_carregando_equipes: false,
-    sn_alterando_status_equipe: false,
 
     nomePessoa: "",
     emailPessoa: "",
@@ -238,7 +235,7 @@ export default {
     async alteraStatusEquipe(equipe_id, status) {
       try {
 
-        this.sn_alterando_status_equipe = true;
+        this.sn_carregando_equipes = true;
 
         let objEquipe = {
           'id': equipe_id,
@@ -265,13 +262,13 @@ export default {
             throw retorno.data.msg;
         }
 
-        this.sn_alterando_status_equipe = false;
+        this.sn_carregando_equipes = false;
 
         this.getDados();
 
       } catch(e) {
         this.mxAlertErroInesperado(e);
-        this.sn_alterando_status_equipe = false;
+        this.sn_carregando_equipes = false;
       }
     },
 
