@@ -3,7 +3,6 @@
     <v-container
       class="fill-height"
       fluid
-      style="background-color: #1d1d1d"
     >
       <v-row
         align="center"
