@@ -28,6 +28,17 @@ const mixinFuncoesGerais = {
         },
 
         /**
+         * Método que retorna uma hora no formado do front
+         * @param {String} timestamp 
+         */
+        mxGetTimeForTimestamp: function (timestamp) {
+            timestamp = timestamp.split('T');
+            timestamp = timestamp[1].split(':');
+        
+            return (timestamp[0] -3) + ':' + timestamp[1];
+        },
+
+        /**
          * Método que formata uma string de data do formato do banco para o formato do front
          * @param {String} data 
          */

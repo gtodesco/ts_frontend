@@ -79,8 +79,8 @@
                     v-text="equipe.nome"
                   ></v-card-title>
 
-                  <v-card-subtitle v-if="equipe.sn_ativa" v-text="'Ativada em: ' + mxFormataDataBd(equipe.dt_ativacao)"></v-card-subtitle>
-                  <v-card-subtitle v-if="!equipe.sn_ativa" v-text="'Desativada em: ' + mxFormataDataBd(equipe.dt_desativacao)"></v-card-subtitle>
+                  <v-card-subtitle v-if="equipe.sn_ativa" v-text="'Ativada em: ' + mxFormataDataBd(equipe.dt_ativacao) + ' ' + mxGetTimeForTimestamp(equipe.updated_at)"></v-card-subtitle>
+                  <v-card-subtitle v-if="!equipe.sn_ativa" v-text="'Desativada em: ' + mxFormataDataBd(equipe.dt_desativacao) + ' ' + mxGetTimeForTimestamp(equipe.updated_at)"></v-card-subtitle>
                 </div>
 
                 <div 
