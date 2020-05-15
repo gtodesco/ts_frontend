@@ -24,6 +24,7 @@
               dark
               x-large
               v-on="on"
+              @click="abrirGrafico()"
             >
               <v-icon color="primary">mdi-chart-donut</v-icon>
             </v-btn>
@@ -114,6 +115,12 @@
       @salvou-impedimento="getImpedimentos()"
     />
 
+    <GraficoImpedimentos 
+      v-if="show_modal_grafico" 
+      v-model="show_modal_grafico"
+      :sprint="sprint_selecionada"
+    />
+
   </v-container>
 </template>
 
@@ -123,12 +130,14 @@ import SelectSprint from '../../components/SelectSprint';
 import CadastroImpedimento from '../../components/CadastroImpedimento';  
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
+import GraficoImpedimentos from '../../components/GraficoImpedimentos';
 
 export default {
   name: 'Impedimentos',
   components: {
     SelectSprint,
-    CadastroImpedimento
+    CadastroImpedimento,
+    GraficoImpedimentos
   },
 
   mixins: [
@@ -142,6 +151,8 @@ export default {
 
     show_modal_cadastro: false,
     sn_editar_registro: false,
+
+    show_modal_grafico: false,
 
     sprint_selecionada: null,
 
@@ -260,6 +271,10 @@ export default {
 
       this.show_modal_cadastro = true;
 
+    },
+
+    abrirGrafico: function () {
+      this.show_modal_grafico = true;
     },
   },
 
