@@ -7,8 +7,7 @@
 
     <v-row>
       <v-col 
-        cols="12"
-        sm="12"
+        cols="6"
         md="3"
       >
         <SelectSprint
@@ -16,6 +15,21 @@
           @change-sprint="getImpedimentos()"
         />
 
+      </v-col>
+      <v-col style="align-self: center; text-align: right;">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              dark
+              x-large
+              v-on="on"
+            >
+              <v-icon color="primary">mdi-chart-donut</v-icon>
+            </v-btn>
+          </template>
+          <span>Ver impedimentos</span>
+        </v-tooltip> 
       </v-col>
     </v-row>
 
