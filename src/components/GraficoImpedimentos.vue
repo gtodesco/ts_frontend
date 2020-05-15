@@ -3,13 +3,17 @@
     <v-dialog 
         v-model="show"
         persistent
-        max-width="600px"
+        fullscreen
+        transition="dialog-bottom-transition"
         @click:outside="fecharModal()"
     >
       <v-card>
-        <v-card-title>
-            <span class="headline">Impedimentos</span>
-        </v-card-title>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="fecharModal()">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
         <v-card-text>
             
             <v-row v-if="sn_carregando_impedimentos" justify="center" align="center">
@@ -22,22 +26,10 @@
             </v-row>
             
             <v-row v-if="!sn_carregando_impedimentos">
-                {{sprint}}
+                <!-- Grafico aqui -->
             </v-row>
-            
 
         </v-card-text>
-        
-        <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn 
-                color="blue darken-1" 
-                text 
-                @click="fecharModal()"
-            >
-                Fechar
-            </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
@@ -83,9 +75,7 @@ export default {
             try {
 
                 this.sn_carregando_impedimentos = true;
-
-
-                
+                this.sn_carregando_impedimentos = false;
 
             } catch (e) {
 
