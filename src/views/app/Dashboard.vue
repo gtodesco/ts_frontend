@@ -1,6 +1,23 @@
 <template>
   <v-container fluid>
 
+    <v-row justify="center" align="center">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            dark
+            x-small
+            v-on="on"
+            @click="getDados()"
+          >
+            <v-icon color="primary">mdi-refresh</v-icon>
+          </v-btn>
+        </template>
+        <span>Atualizar</span>
+      </v-tooltip> 
+    </v-row>
+
     <v-row v-if="!sn_carregando_dashboard">
       <v-expansion-panels 
         multiple
