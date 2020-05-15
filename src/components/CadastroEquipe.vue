@@ -57,6 +57,7 @@
 import mixinFuncoesGerais from '../mixins/mixinFuncoesGerais';
 import axios_ts from '../axios-config';  
 import moment from 'moment';
+import mixinAlert from '../mixins/mixinAlert';
 
 export default {
     model: {
@@ -66,7 +67,8 @@ export default {
     name: 'CadastroEquipe',
 
     mixins: [
-        mixinFuncoesGerais
+        mixinFuncoesGerais,
+        mixinAlert
     ],
 
     props: {
