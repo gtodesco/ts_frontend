@@ -35,7 +35,7 @@ const mixinFuncoesGerais = {
             timestamp = timestamp.split('T');
             timestamp = timestamp[1].split(':');
         
-            return (timestamp[0] -3) + ':' + timestamp[1];
+            return `${(timestamp[0] -3)}:${timestamp[1]} h`;
         },
 
         /**
