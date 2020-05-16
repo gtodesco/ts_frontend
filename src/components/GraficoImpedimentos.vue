@@ -129,11 +129,15 @@ export default {
                 options: {
                     title: {
                         display: true,
-                        text: 'Total de impedimentos por pessoa'
+                        text: 'Total de impedimentos por pessoa',
+                        fontColor: this.$vuetify.theme.dark ? "#ffffff" : '##666'
                     },
                     legend: {
                         display: true,
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: {
+                            fontColor: this.$vuetify.theme.dark ? "#ffffff" : '##666'
+                        }
                     },
                     maintainAspectRatio: false,
                     aspectRatio: 1,
