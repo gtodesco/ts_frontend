@@ -63,6 +63,7 @@
 import mixinFuncoesGerais from '../mixins/mixinFuncoesGerais';
 import axios_ts from '../axios-config';  
 import mixinAlert from '../mixins/mixinAlert';
+import moment from 'moment';
 
 export default {
     model: {
@@ -135,7 +136,8 @@ export default {
 
                 const retorno = await axios_ts.put('/atividade', {
                     id: this.atividade.id,
-                    status_id: this.status_selecionado 
+                    status_id: this.status_selecionado,
+                    dt_conclusao: this.status_selecionado == 7 ? this.mxGetDataBd(moment()) : null // Se for concluído, envia a data de conclusão da atividade, senão envia vazio
                 });
 
                 if (!retorno.data.status) {
