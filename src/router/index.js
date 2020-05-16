@@ -16,6 +16,7 @@ import Time from '../views/app/Time.vue'
 import Retrospectivas from '../views/app/Retrospectivas.vue'
 import Sprints from '../views/app/Sprints.vue'
 import TiposAtividade from '../views/app/TiposAtividade.vue'
+import Burndown from '../views/app/Burndown.vue'
 
 Vue.use(VueRouter)
 
@@ -154,6 +155,21 @@ const routes = [
         path: 'dashboard', 
         name:'Dashboard',
         component: Dashboard,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('currentUserId') == "" || 
+              localStorage.getItem('currentUserId') == null
+          ){
+            next('/login');
+          }
+          else {
+            next();
+          }
+        }
+      },
+      { 
+        path: 'burndown', 
+        name:'Burndown',
+        component: Burndown,
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('currentUserId') == "" || 
               localStorage.getItem('currentUserId') == null

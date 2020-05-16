@@ -36,6 +36,12 @@
                         </v-list-item-icon>
                         <v-list-item-title>Dashboard</v-list-item-title>
                     </v-list-item>
+                    <v-list-item @click="mxIrPara('main/burndown')">
+                        <v-list-item-icon>
+                            <v-icon>mdi-chart-sankey</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>Burndown</v-list-item-title>
+                    </v-list-item>
                     <v-list-item @click="mxIrPara('main/time')">
                         <v-list-item-icon>
                             <v-icon>mdi-account-group-outline</v-icon>
