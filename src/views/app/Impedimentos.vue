@@ -24,6 +24,7 @@
               dark
               x-large
               v-on="on"
+              :disabled="arrImpedimentos.length == 0"
               @click="abrirGrafico()"
             >
               <v-icon color="primary">mdi-chart-donut</v-icon>
