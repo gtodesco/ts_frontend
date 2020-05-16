@@ -93,6 +93,18 @@
 
                 </v-list-item-group>
             </v-list>
+            <template v-slot:append>
+                <div class="pa-2 float-right">
+                    <v-btn
+                        icon
+                        root
+                        large
+                        @click="setTema()"
+                    >
+                        <v-icon color="primary">mdi-theme-light-dark</v-icon>
+                    </v-btn>
+                </div>
+            </template>
         </v-navigation-drawer>
 
         <v-app-bar 
@@ -154,16 +166,16 @@ export default {
   
   data: () => ({
 
-      drawer: false,
-      item: null,
+    drawer: false,
+    item: null,
 
-      sn_carregando_pessoa: false,
+    sn_carregando_pessoa: false,
 
-      sn_mostrar_modal_perfil: false,
+    sn_mostrar_modal_perfil: false,
 
-      nomeEquipe: '',  
-      nomePessoa: '',
-      emailPessoa: '',
+    nomeEquipe: '',  
+    nomePessoa: '',
+    emailPessoa: '',
 
   }),
 
@@ -212,6 +224,11 @@ export default {
         localStorage.removeItem('team');
         this.mxIrPara('login');
     },
+
+    setTema: function() {
+      this.$vuetify.theme.dark = !parseInt(localStorage.getItem('dark'));
+      localStorage.setItem('dark', this.$vuetify.theme.dark ? 1 : 0);
+    }
 
   },
 

@@ -3,6 +3,7 @@
     <v-container
       class="fill-height"
       fluid
+      style="background-color: white;"
     >
       <v-row
         align="center"
@@ -13,7 +14,7 @@
           sm="8"
           md="4"
         >
-          <v-card outlined>
+          <v-card outlined light>
             <v-row justify="center">
               <v-img
                 max-height="15%"

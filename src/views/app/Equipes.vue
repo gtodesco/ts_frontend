@@ -323,5 +323,9 @@ export default {
     await this.getDados();
   },
 
+  async created() {
+    this.$vuetify.theme.dark = parseInt(localStorage.getItem('dark'));
+  }
+
 };
 </script>
