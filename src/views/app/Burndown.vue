@@ -6,6 +6,18 @@
     <br>
 
     <v-row>
+      <v-col 
+        v-if="sprint_atual == null"
+        cols="12" 
+        sm="12"
+      >
+        <v-alert 
+          type="info"
+          text
+        >
+          Não existe uma sprint ativa no momento.
+        </v-alert>
+      </v-col>
       <v-col>
         <canvas
           ref="grafico"
@@ -49,6 +61,8 @@ export default {
 
       sn_carregando_burndown: false,
 
+      sprint_atual: null,
+
       arrDatas: [],
       arrHorasIdeal: [],
       arrHorasAtual: [],
@@ -63,9 +77,16 @@ export default {
         try {
           this.sn_carregando_burndown = true;
 
+          this.sprint_atual = await this.mxGetSprintAtual();
+
+          if (this.sprint_atual == null) {
+            this.sn_carregando_burndown = false;
+            return;
+          }
+
           const retorno = await axios_ts.get('/get-burndown', {
               params: {
-                  sprint_id: await this.mxGetSprintAtual()
+                  sprint_id: this.sprint_atual
               }
           });
 
@@ -74,6 +95,8 @@ export default {
           this.arrHorasAtual = retorno.data.arr_horas_por_dia;
 
           this.sn_carregando_burndown = false;
+
+          await this.criaGrafico();
             
         } catch (e) {
             this.mxAlertErroInesperado(e);
@@ -143,7 +166,6 @@ export default {
 
     async mounted() {
       await this.getDados();
-      await this.criaGrafico();
     },
 
     watch: {

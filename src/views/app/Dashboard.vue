@@ -37,6 +37,7 @@
                 tile 
                 outlined 
                 color="success"
+                :disabled="sprint_atual == null"
                 @click="abrirModal(false, status.id)"
               >
                 <v-icon left>mdi-plus</v-icon> 
@@ -190,6 +191,8 @@ export default {
     status_selecionado: null,
     atividade_selecionada: null,
 
+    sprint_atual: null,
+
     objAtividade: {},
 
     arrStatus: false,
@@ -204,11 +207,11 @@ export default {
 
         this.sn_carregando_dashboard = true;
 
-        const sprint_atual = await this.mxGetSprintAtual();
+        this.sprint_atual = await this.mxGetSprintAtual();
 
         const retorno = await axios_ts.get('/status-atividades', {
             params: {
-                sprint_id: sprint_atual == null ? 0 : sprint_atual // Precisa enviar como 0, pois null o axios remove dos params
+                sprint_id: this.sprint_atual == null ? 0 : this.sprint_atual // Precisa enviar como 0, pois null o axios remove dos params
             }
         });
 
