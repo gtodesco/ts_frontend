@@ -39,7 +39,7 @@
                   v-model="email"
                   id="email"
                   label="E-mail"
-                  prepend-icon="mdi-account"
+                  prepend-icon="mdi-email"
                   :rules="[rules.required, rules.email]"
                 />
 
@@ -69,8 +69,9 @@
               <v-card-actions>
                 <v-btn
                   class="ml-3" 
-                  text 
-                  small 
+                  text
+                  small
+                  color="primary" 
                   @click="mxIrPara('cadastro')"
                 >
                   Registre-se

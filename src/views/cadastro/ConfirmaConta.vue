@@ -72,6 +72,7 @@
                   class="ml-3" 
                   text 
                   small 
+                  color="primary"
                   onClick="javascript:history.go(-1)"
                 >
                   Voltar

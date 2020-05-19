@@ -49,6 +49,7 @@
                   class="ml-3" 
                   text 
                   small 
+                  color="primary" 
                   @click="mxIrPara('login')"
                 >
                   Voltar

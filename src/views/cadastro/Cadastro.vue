@@ -78,7 +78,8 @@
                 <v-btn
                   class="ml-3" 
                   text 
-                  small 
+                  small
+                  color="primary" 
                   @click="mxIrPara('login')"
                 >
                   Login
