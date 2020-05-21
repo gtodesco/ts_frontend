@@ -200,6 +200,12 @@ export default {
     async fecharSprint(id) {
       try {
 
+          const confirmacao = await this.mxAlertConfirma('Deseja mesmo encerrar esta sprint? Esta ação é irreversível!!!');
+
+          if (!confirmacao) {
+            return;
+          }
+
           this.sn_carregando_sprints = true;
 
           const retorno = await axios_ts.put('/sprint', {

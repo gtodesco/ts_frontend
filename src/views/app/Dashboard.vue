@@ -230,6 +230,12 @@ export default {
 
       try {
 
+        const confirmacao = await this.mxAlertConfirma('Deseja mesmo remover esta atividade da sprint?');
+
+        if (!confirmacao) {
+          return;
+        }
+
         const retorno = await axios_ts.put('/atividade', {
             id: id,
             sprint_id: null,
