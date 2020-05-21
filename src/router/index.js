@@ -27,6 +27,13 @@ const routes = [
     component: NotFound // Deve diretionar para uma tela de rota inválida
   },
   {
+    path: '/index.html', // No Pwa, ao dar reload na página de login estava definindo a rota para o start do pwa.
+    name: 'pwaStart',
+    beforeEnter: (to, from, next) => {
+      next('/login');
+    }
+  },
+  {
     path: '/',
     name: 'Home',
     component: Home,
