@@ -131,7 +131,6 @@ export default {
                     retorno = await axios_ts.put('/impedimento', {
                         'id': this.objImpedimento.id,
                         'sprint_id': this.sprint,
-                        'pessoa_id': pessoa_logada.data[0].id,
                         'descricao': this.objImpedimento.descricao,
                         'horas': this.objImpedimento.horas,
                     });
