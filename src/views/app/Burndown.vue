@@ -21,7 +21,7 @@
       <v-col>
         <canvas
           ref="grafico"
-          style="max-height: 500px;"
+          style="max-height: 500px; max-width: 1200px;"
         ></canvas>
       </v-col>
     </v-row>
