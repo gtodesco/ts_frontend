@@ -45,6 +45,10 @@
           :items="arrImpedimentos"
           :items-per-page="10"
           class="elevation-1"
+          :footer-props="{
+            'itemsPerPageAllText': 'Todos',
+            'itemsPerPageText': 'Itens por página',
+          }"
         >
           <template v-slot:item.actions="{ item }">
             <v-icon
