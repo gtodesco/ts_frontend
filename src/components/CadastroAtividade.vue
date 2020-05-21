@@ -21,7 +21,7 @@
                         <v-col cols="12" sm="12">
                             <v-text-field 
                                 v-model="objAtividade.titulo"
-                                label="Título"
+                                label="Título *"
                                 :rules="[rules.required]"
                             />
                         </v-col>
@@ -31,7 +31,7 @@
                             <v-textarea
                                 v-model="objAtividade.descricao"
                                 outlined
-                                label="Descrição"
+                                label="Descrição *"
                                 :rules="[rules.required]"
                             ></v-textarea>
                         </v-col>
@@ -41,7 +41,7 @@
                             <v-text-field 
                                 v-model="objAtividade.horas_previsto"
                                 type="time"
-                                label="Previsto"
+                                label="Previsto *"
                                 :rules="[rules.required]"
                             />
                         </v-col>
@@ -70,7 +70,7 @@
                                 :menu-props="{ offsetY: true }"
                                 item-text="descricao"
                                 item-value="id"
-                                label="Tipo"
+                                label="Tipo *"
                                 :loading="sn_carregando_tipo_de_atividade"
                                 :rules="[rules.required]"
                             >
