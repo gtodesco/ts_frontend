@@ -233,6 +233,12 @@ export default {
     async removePessoa(pessoa) {
       try {
 
+        const confirmacao = await this.mxAlertConfirma('Deseja mesmo remover esta pessoa do time?');
+
+        if (!confirmacao) {
+          return;
+        }
+
         this.sn_carregando_pessoas = true;
 
         const retorno = await axios_ts.delete('/equipe/pessoa', {

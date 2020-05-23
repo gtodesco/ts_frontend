@@ -238,6 +238,12 @@ export default {
 
       try {
 
+        const confirmacao = await this.mxAlertConfirma('Deseja mesmo remover este impedimento?');
+
+        if (!confirmacao) {
+          return;
+        }
+
         this.sn_carregando_impedimentos = true;
 
         const retorno = await axios_ts.delete('/impedimento', {
