@@ -217,7 +217,7 @@
           >
             Meu nome é Gabriel Jensen Todesco, tenho 22 anos e sou graduando em Sistemas de Informação pela FURB - Universidade Regional de Blumenau.
             Atuo no mercado de TI desde 2014, quando iniciei na área de qualidade de software, que desenvolveu em mim um grande senso crítico em relação a um sistema e suas regras de negócio. Atualmente, trabalho como programador e gosto de explorar novas tecnologias, conhecer processos e aplicar as melhores práticas no desenvolvimento de um software.
-            Sou um grande entusiasta de metodologias ágeis, tanto é que este é o tema deste projeto. Estou em constante aprendizado e acredito que a troca de experiências e conhecimentos seja a melhor forma para evoluirmos e contribuirmos para a sociedade, criando soluções que supram as necessidades do ecossistema ao nosso redor. 
+            Estou em constante aprendizado e acredito que a troca de experiências e conhecimentos seja a melhor forma para evoluirmos e contribuirmos para a sociedade, criando soluções que supram as necessidades do ecossistema ao nosso redor. 
           </v-responsive>
 
           <v-avatar
