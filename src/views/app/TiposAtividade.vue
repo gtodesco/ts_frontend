@@ -177,6 +177,12 @@ export default {
 
       try {
 
+        const confirmacao = await this.mxAlertConfirma('Deseja mesmo excluir este tipo de atividade?');
+
+        if (!confirmacao) {
+          return;
+        }
+
         this.sn_carregando_tipos_atividade = true;
 
         const retorno = await axios_ts.delete('/tipo-atividade', {
