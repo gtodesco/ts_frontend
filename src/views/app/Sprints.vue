@@ -62,7 +62,7 @@
                   <v-icon color="primary">mdi-calendar-edit</v-icon>
                 </v-btn>
               </template>
-              <span>Ajustar Sprint</span>
+              <span>Ajustar sprint</span>
             </v-tooltip>
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
@@ -76,7 +76,7 @@
                   <v-icon color="primary">mdi-calendar-check-outline</v-icon>
                 </v-btn>
               </template>
-              <span>Fechar Sprint</span>
+              <span>Fechar sprint</span>
             </v-tooltip>
           </v-card-actions>
         </v-card>
