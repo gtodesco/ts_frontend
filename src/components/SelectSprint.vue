@@ -6,6 +6,7 @@
         item-text="numero"
         item-value="id"
         label="Sprint"
+        no-data-text="Sem dados"
         :loading="sn_carregando_sprint"
         @change="selecionaSprint()"
     >

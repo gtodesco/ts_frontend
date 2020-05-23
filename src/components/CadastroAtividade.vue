@@ -71,6 +71,7 @@
                                 item-text="descricao"
                                 item-value="id"
                                 label="Tipo *"
+                                no-data-text="Sem dados"
                                 :loading="sn_carregando_tipo_de_atividade"
                                 :rules="[rules.required]"
                             >

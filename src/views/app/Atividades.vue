@@ -20,6 +20,7 @@
           item-value="id"
           clearable
           label="Tipo"
+          no-data-text="Sem dados"
           @change="getAtividades()"
         >
         </v-select>
