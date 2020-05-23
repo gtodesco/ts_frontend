@@ -38,7 +38,7 @@
                   <v-icon color="primary">mdi-star-off</v-icon>
                 </v-btn>
               </template>
-              <span>Retirar Scrum Master</span>
+              <span>Retirar coordenação</span>
             </v-tooltip>
             
             <v-tooltip bottom v-if="!pessoa.equipes_pessoas.sn_scrummaster">
@@ -53,7 +53,7 @@
                   <v-icon color="primary">mdi-star-outline</v-icon>
                 </v-btn>
               </template>
-              <span>Tornar Scrum Master</span>
+              <span>Tornar coordenador</span>
             </v-tooltip>
 
             <v-tooltip bottom>

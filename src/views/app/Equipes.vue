@@ -94,7 +94,7 @@
                     label
                     small
                   >
-                    Scrum Master
+                    Coordenador
                   </v-chip>
                 </div>
               </div>
