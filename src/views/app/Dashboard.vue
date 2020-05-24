@@ -105,7 +105,7 @@
                         <v-icon color="error">mdi-calendar-remove</v-icon>
                       </v-btn>
                     </template>
-                    <span>Retirar da Sprint</span>
+                    <span>Retirar da sprint</span>
                   </v-tooltip>   
 
                   <v-spacer/>               
