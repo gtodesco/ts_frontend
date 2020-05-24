@@ -268,6 +268,8 @@ export default {
     async setPessoaScrumMaster(pessoa) {
       try {
 
+          this.sn_carregando_pessoas = true;
+
           const retorno = await axios_ts.post('/equipe/pessoa', {
             'equipe_id': localStorage.getItem('team'),
             'pessoa_id': pessoa.id,
@@ -287,6 +289,7 @@ export default {
 
       } catch(e) {
         this.mxAlertErroInesperado(e);
+        this.sn_carregando_pessoas = false;
       }
     },
 
