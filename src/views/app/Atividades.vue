@@ -100,7 +100,7 @@
                   <v-icon color="primary">mdi-calendar-plus</v-icon>
                 </v-btn>
               </template>
-              <span>Adicionar à Sprint atual</span>
+              <span>Adicionar à sprint atual</span>
             </v-tooltip>
 
             <v-tooltip bottom>
