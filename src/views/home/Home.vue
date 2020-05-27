@@ -86,7 +86,7 @@
                       class="font-weight-light"
                       :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
                     >
-                      COM O MELHOR SOFTWARE DO MERCADO
+                      COM TRANSPARÊNCIA E AGILIDADE
                     </span>
                   </v-col>
 
