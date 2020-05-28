@@ -18,7 +18,7 @@
       </v-tooltip> 
     </v-row>
 
-    <v-row v-if="!sn_carregando_dashboard">
+    <v-row>
       <v-expansion-panels 
         multiple
         :value="[0, 1, 2, 3, 4, 5]"
@@ -43,16 +43,32 @@
                 <v-icon left>mdi-plus</v-icon> 
                 Atividade
               </v-btn>
+
+              <v-row 
+                v-if="sn_carregando_atividades" 
+                justify="center" 
+                align="center"
+                class="mt-5"
+              >
+                <v-progress-circular
+                  v-if="sn_carregando_atividades"
+                  :size="60"
+                  color="primary"
+                  indeterminate
+                ></v-progress-circular>
+              </v-row>
+
               <v-alert 
                 class="mt-2"
-                v-if="status.atividades.length == 0"
+                v-if="status.atividades.length == 0 && !sn_carregando_atividades"
                 color="grey"
                 text
               >
                 Sem atividades
               </v-alert>
+
               <v-card
-                v-else-if="status.atividades.length > 0"
+                v-else-if="status.atividades.length > 0 && !sn_carregando_atividades"
                 class="mx-auto mt-2"
                 outlined
                 v-for="(atividade, i) in status.atividades"
@@ -132,15 +148,6 @@
       </v-expansion-panels>
     </v-row>
 
-    <v-row v-if="sn_carregando_dashboard" justify="center" align="center">
-      <v-progress-circular
-        v-if="sn_carregando_dashboard"
-        :size="60"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
-    </v-row>
-
     <CadastroAtividade 
       v-if="show_modal_cadastro" 
       v-model="show_modal_cadastro"
@@ -182,11 +189,10 @@ export default {
 
   data: () => ({
 
-    sn_carregando_dashboard: false,
-
     show_modal_cadastro: false,
     show_modal_mover: false,
     sn_editar_registro: false,
+    sn_carregando_atividades: false,
 
     status_selecionado: null,
     atividade_selecionada: null,
@@ -195,7 +201,38 @@ export default {
 
     objAtividade: {},
 
-    arrStatus: false,
+    arrStatus: [
+      {
+        id: 1,
+        descricao: 'Backlog',
+        atividades: []
+      },
+      {
+        id: 2,
+        descricao: 'A fazer',
+        atividades: []
+      },
+      {
+        id: 3,
+        descricao: 'Em desenvolvimento',
+        atividades: []
+      },
+      {
+        id: 4,
+        descricao: 'Impedimento',
+        atividades: []
+      },
+      {
+        id: 6,
+        descricao: 'Em testes',
+        atividades: []
+      },
+      {
+        id: 7,
+        descricao: 'Concluídos',
+        atividades: []
+      },
+    ],
 
   }),
 
@@ -205,7 +242,7 @@ export default {
 
       try {
 
-        this.sn_carregando_dashboard = true;
+        this.sn_carregando_atividades = true;
 
         this.sprint_atual = await this.mxGetSprintAtual();
 
@@ -217,11 +254,11 @@ export default {
 
         this.arrStatus = retorno.data;
 
-        this.sn_carregando_dashboard = false;
+        this.sn_carregando_atividades = false;
 
       } catch(e) {
         this.mxAlertErroInesperado(e);
-        this.sn_carregando_dashboard = false;
+        this.sn_carregando_atividades = false;
       }
 
     },
