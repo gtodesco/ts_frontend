@@ -358,32 +358,32 @@ export default {
       {
         icone: 'mdi-account-group-outline',
         titulo: 'Gestão de equipes',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
+        texto: 'Organize várias equipes para vários projetos e propósitos diferentes. Adicione ou remova pessoas da equipe e torne elas coordenadoras. Todos tem acesso à todas as informações de desenvolvimento.',
       },
       {
         icone: 'mdi-file-tree',
         titulo: 'Fluxo de atividades',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
+        texto: 'Planeje atividades e adicione elas ao fluxo de trabalho. Controle a produtividade, separando as atividades por etapas, classificações pré-definidas e compare as horas planejadas com as horas realizadas.',
       },
       {
         icone: 'mdi-chart-line',
         titulo: 'Gráficos comparativos',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
+        texto: 'Tome decisões de forma rápida e consciente conferindo as estatísticas do gráfico Burndown e de Impedimentos, analisando o andamento do trabalho e a quantidade de horas que cada pessoa trabalhou em algo não planejado.',
       },
       {
         icone: 'mdi-account-supervisor',
         titulo: 'Permissões por usuário',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
+        texto: 'Todos podem ter acesso às informações da equipe, referente ao andamento do trabalho e estatísticas. Coordenadores podem editar, ativar ou desativar uma equipe, tornar outra pessoa coordenadora ou removê-la da equipe.',
       },
       {
         icone: 'mdi-cellphone-link',
         titulo: 'Multiplataforma',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
+        texto: 'Acesse o Team Stats de onde estiver, através de um computador, notebook, tablet ou smartphone. Realize as operações sem queda de rendimento em qualquer dispositivo, em uma plataforma totalmente responsiva e padronizada. ',
       },
       {
         icone: 'mdi-currency-usd',
         titulo: 'Custo-benefício',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
+        texto: 'O Team Stats é gratuito! Todas as informações, funcionalidades, estatísticas e recursos são disponibilizados com o objetivo de auxiliar você a organizar melhor seu desenvolvimento ágil e integrar sua equipe.',
       },
     ],
 
