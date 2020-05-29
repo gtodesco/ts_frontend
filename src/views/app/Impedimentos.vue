@@ -21,7 +21,7 @@
           <template v-slot:activator="{ on }">
             <v-btn
               icon
-              dark
+              root
               x-large
               v-on="on"
               :disabled="arrImpedimentos.length == 0"
