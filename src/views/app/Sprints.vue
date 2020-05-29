@@ -1,7 +1,14 @@
 <template>
   <v-container>
 
-    <h1 class="headline">Sprints</h1>
+    <div style="display: inline-flex">
+      <h1 class="headline">Sprints</h1>
+      <HelpButton
+        tela="Sprints"
+        help="Nesta tela você irá cadastrar suas sprints, definindo seu número e as datas de início e fim. 
+        Sempre que uma nova sprint for criada, a atual será encerrada automaticamente. Você pode ajustar uma sprint ou encerrá-la."
+      />
+    </div>
 
     <br>
 
@@ -129,11 +136,13 @@ import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import CadastroSprint from '../../components/CadastroSprint'; 
+import HelpButton from '../../components/HelpButton';
 
 export default {
   name: 'Sprints',
   components: {
-    CadastroSprint
+    CadastroSprint,
+    HelpButton
   },
   mixins: [
     mixinFuncoesGerais,

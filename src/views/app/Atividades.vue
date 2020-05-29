@@ -1,7 +1,13 @@
 <template>
   <v-container>
 
-    <h1 class="headline">Atividades planejadas</h1>
+    <div style="display: inline-flex">
+      <h1 class="headline">Atividades planejadas</h1>
+      <HelpButton
+        tela="Atividades planejadas"
+        help="Esta tela serve para cadastrar atividades analisadas antes de adicioná-las à uma sprint."
+      />
+    </div>
 
     <br>
 
@@ -169,11 +175,13 @@ import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import CadastroAtividade from '../../components/CadastroAtividade'; 
+import HelpButton from '../../components/HelpButton';
 
 export default {
   name: 'Atividades',
   components: {
-    CadastroAtividade
+    CadastroAtividade,
+    HelpButton
   },
   mixins: [
     mixinFuncoesGerais,

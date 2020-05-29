@@ -1,7 +1,15 @@
 <template>
   <v-container>
     
-    <h1 class="headline">Retrospectivas</h1>
+    <div style="display: inline-flex">
+      <h1 class="headline">Retrospectivas</h1>
+      <HelpButton
+        tela="Retrospectivas"
+        help='Esta tela exibe as retrospectivas de cada sprint. A sprint atual virá selecionada por padrão.
+        A retrospectiva tem como objetivo avaliar o processo de trabalho em uma sprint. Ela é dividida em três grupos, onde as pessoas podem digitar o que acham que a equipe deve 
+        Começar, Continuar ou Parar.'
+      />
+    </div>
 
     <br>
 
@@ -82,7 +90,8 @@
 import axios_ts from '../../axios-config';
 import SelectSprint from '../../components/SelectSprint';
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
-import mixinAlert from '../../mixins/mixinAlert';
+import mixinAlert from '../../mixins/mixinAlert'; 
+import HelpButton from '../../components/HelpButton';
 
 export default {
   name: 'Retrospectivas',
@@ -94,6 +103,7 @@ export default {
 
   components: {
     SelectSprint,
+    HelpButton
   },
 
   data: () => ({

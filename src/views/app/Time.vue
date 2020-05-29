@@ -2,7 +2,13 @@
     
   <v-container>
 
-    <h1 class="headline">Time</h1>
+    <div style="display: inline-flex">
+      <h1 class="headline">Time</h1>
+      <HelpButton
+        tela="Time"
+        help="Nesta tela, você pode consultar informações sobre os integrantes da sua equipe. Você pode adicionar pessoas e se você for coordenador pode torná-las coordenadoras também ou removê-las."
+      />
+    </div>
 
     <br>
 
@@ -135,12 +141,14 @@
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
-import BuscaPessoaPorEmail from '../../components/BuscaPessoaPorEmail'; 
+import BuscaPessoaPorEmail from '../../components/BuscaPessoaPorEmail';
+import HelpButton from '../../components/HelpButton'; 
 
 export default {
   name: 'Time',
   components: {
-    BuscaPessoaPorEmail
+    BuscaPessoaPorEmail,
+    HelpButton
   },
   mixins: [
     mixinFuncoesGerais,

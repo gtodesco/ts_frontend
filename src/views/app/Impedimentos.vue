@@ -1,7 +1,18 @@
 <template>
   <v-container>
     
-    <h1 class="headline">Impedimentos</h1>
+    <div style="display: inline-flex">
+      <h1 class="headline">Impedimentos</h1>
+      <HelpButton
+        tela="Impedimentos"
+        help='Nesta tela são listados e cadastrados os impedimentos que as pessoas tiveram durante a sprint. 
+        Impedimento é qualquer acontecimento não planejado que atrasou você no desenvolvimento de suas atividades ou ocupou uma parte do seu tempo. Exemplos são: falta de energia, falha de equipamento, ajuda não planejada a outra pessoa etc.
+        A sprint atual já virá selecionada, mas se você possuir outras sprints, também pode selecioná-las para consultar o histórico de impedimentos.
+        
+        O botão "Ver impedimentos" irá apresentar um gráfico com todos os impedimentos agrupados por pessoa. A quantidade de impedimentos deve refletir diretamente no burndown e no andamento da sprint, 
+        já que a pessoa estava ocupada trabalhando em situações não planejadas ao invés de trabalhar nas atividades da sprint.'
+      />
+    </div>
 
     <br>
 
@@ -135,14 +146,16 @@ import SelectSprint from '../../components/SelectSprint';
 import CadastroImpedimento from '../../components/CadastroImpedimento';  
 import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
-import GraficoImpedimentos from '../../components/GraficoImpedimentos';
+import GraficoImpedimentos from '../../components/GraficoImpedimentos'; 
+import HelpButton from '../../components/HelpButton';
 
 export default {
   name: 'Impedimentos',
   components: {
     SelectSprint,
     CadastroImpedimento,
-    GraficoImpedimentos
+    GraficoImpedimentos,
+    HelpButton
   },
 
   mixins: [

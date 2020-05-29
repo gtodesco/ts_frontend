@@ -2,7 +2,13 @@
   
   <v-container>
 
-    <h1 class="headline">Tipos de Atividades</h1>
+    <div style="display: inline-flex">
+      <h1 class="headline">Tipos de atividade</h1>
+      <HelpButton
+        tela="Tipos de atividade"
+        help='Nesta tela são listadas e cadastradas as classificações das atividades, que são utilizadas para uma melhor organização no "Dashboard" e como filtro na tela de "Atividades planejadas".'
+      />
+    </div>
 
     <br>
 
@@ -124,11 +130,13 @@
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
 import CadastroTipoAtividade from '../../components/CadastroTipoAtividade'; 
+import HelpButton from '../../components/HelpButton';
 
 export default {
   name: 'TiposAtividade',
   components: {
-    CadastroTipoAtividade
+    CadastroTipoAtividade,
+    HelpButton
   },
   mixins: [
     mixinAlert

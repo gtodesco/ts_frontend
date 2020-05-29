@@ -1,7 +1,17 @@
 <template>
   <v-container>
-
-    <h1 class="headline">Burndown</h1>
+    
+    <div style="display: inline-flex">
+      <h1 class="headline">Burndown</h1>
+      <HelpButton
+        tela="Burndown"
+        help="Nesta tela é exibido o gráfico de burndown da sprint atual. Ele é considerado um dos mais úteis para monitorar o progresso de um time ágil.
+        O gráfico representa a quantidade de trabalho que falta ser feita no eixo vertical (y) versus o tempo no eixo horizontal (x). 
+        Neste caso, o burndown por horas serve para acompanhamento do ritmo diário da equipe.
+        A linha azul representa a quantidade de horas que deve faltar em cada dia da sprint para que se consiga finalizar todas as atividades até o fim dela. A linha vermelha representa o progresso atual do time, gerando um comparativo que pode ser usado para prever se tudo que foi planejado será entregue e permite ao gestor da equipe tomar ações de forma antecipada.
+        O gráfico burndown conta apenas dias úteis."
+      />
+    </div>
 
     <br>
 
@@ -48,6 +58,7 @@ import mixinFuncoesGerais from '../../mixins/mixinFuncoesGerais';
 import mixinAlert from '../../mixins/mixinAlert';
 import axios_ts from '../../axios-config';
 import Chart from 'chart.js';
+import HelpButton from '../../components/HelpButton'; 
 
 export default {
     name: 'Burndown',
@@ -56,6 +67,10 @@ export default {
         mixinFuncoesGerais,
         mixinAlert
     ],
+
+    components: {
+      HelpButton
+    },
 
     data: () => ({
 
