@@ -46,13 +46,22 @@
                 <v-text-field
                   v-model="senha"
                   id="senha"
-                  :append-icon="mostrar_senha ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="mostrar_senha ? 'text' : 'password'"
-                  @click:append="mostrar_senha = !mostrar_senha"
                   label="Senha"
                   prepend-icon="mdi-lock"
                   :rules="[rules.required]"
-                />
+                >
+                  <template v-slot:append>
+                    <v-button 
+                      @click="mostrar_senha = !mostrar_senha" 
+                      tabindex="-1"
+                      style="cursor: pointer;"
+                    >
+                      <v-icon v-if="mostrar_senha" >mdi-eye</v-icon>
+                      <v-icon v-if="!mostrar_senha" >mdi-eye-off</v-icon>
+                    </v-button>
+                  </template>                
+                </v-text-field>
                 
                 <router-link to="login/senha" style="text-decoration: none;">
                   <a class="ml-8">

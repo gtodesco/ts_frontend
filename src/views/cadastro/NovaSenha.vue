@@ -71,7 +71,18 @@
                   label="Nova senha"
                   prepend-icon="mdi-lock"
                   :rules="[rules.required, rules.senha]"
-                />
+                >
+                  <template v-slot:append>
+                    <v-button 
+                      @click="mostrar_senha = !mostrar_senha" 
+                      tabindex="-1"
+                      style="cursor: pointer;"
+                    >
+                      <v-icon v-if="mostrar_senha" >mdi-eye</v-icon>
+                      <v-icon v-if="!mostrar_senha" >mdi-eye-off</v-icon>
+                    </v-button>
+                  </template>                
+                </v-text-field>
 
                 <v-text-field
                   v-model="senha_confirma"
@@ -82,8 +93,18 @@
                   label="Confirme a nova senha"
                   prepend-icon="mdi-lock-check"
                   :rules="[rules.required, senhaValidacao]"
-                />
-
+                >
+                  <template v-slot:append>
+                    <v-button 
+                      @click="mostrar_senha_confirma = !mostrar_senha_confirma" 
+                      tabindex="-1"
+                      style="cursor: pointer;"
+                    >
+                      <v-icon v-if="mostrar_senha_confirma" >mdi-eye</v-icon>
+                      <v-icon v-if="!mostrar_senha_confirma" >mdi-eye-off</v-icon>
+                    </v-button>
+                  </template>                
+                </v-text-field>
               </v-card-text>
               <v-card-actions>
                 <v-btn
