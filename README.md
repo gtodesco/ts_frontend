@@ -1,24 +1,11 @@
-# team-stats
+# Team Stats 
+## Front-end
 
-## Project setup
-```
-npm install
-```
+Front-end da aplicação "Team Stats", meu projeto de TCC pela FURB - Universidade Regional de Blumenau. 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Tecnologias utilizadas: 
+- Vue.js
+- VueRouter
+- Vuetify
+- Chart.js
+- PWA - Progressive Web Aplication
