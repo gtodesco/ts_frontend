@@ -56,7 +56,9 @@
             </v-chip>
           </v-list-item>
 
-          <v-card-text class="headline font-weight-bold text-md-center">
+          <v-card-text 
+            :class="sprint.sn_ativa ? 'headline font-weight-bold text-md-center' : ''"
+          >
             {{sprint.objetivo}}
           </v-card-text>
 
