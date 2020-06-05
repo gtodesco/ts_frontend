@@ -41,6 +41,12 @@
             <v-list-item-content>
               <v-list-item-title class="headline mb-1">Sprint {{sprint.numero}}</v-list-item-title>
               <v-list-item-subtitle>{{mxFormataDataBd(sprint.dt_inicio)}} - {{mxFormataDataBd(sprint.dt_fim)}}</v-list-item-subtitle>
+              <p
+                class="mt-5"
+                :class="sprint.sn_ativa ? 'font-weight-bold text-md-center' : ''"
+              >
+                {{sprint.objetivo}}
+              </p>
             </v-list-item-content>
 
             <v-chip
@@ -55,12 +61,6 @@
               Atual
             </v-chip>
           </v-list-item>
-
-          <v-card-text 
-            :class="sprint.sn_ativa ? 'headline font-weight-bold text-md-center' : ''"
-          >
-            {{sprint.objetivo}}
-          </v-card-text>
 
           <v-card-actions v-if="sprint.sn_ativa">
             <v-tooltip bottom>
