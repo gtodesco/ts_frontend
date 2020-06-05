@@ -56,6 +56,10 @@
             </v-chip>
           </v-list-item>
 
+          <v-card-text class="headline font-weight-bold text-md-center">
+            {{sprint.objetivo}}
+          </v-card-text>
+
           <v-card-actions v-if="sprint.sn_ativa">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
@@ -199,6 +203,7 @@ export default {
           'numero': '',
           'dt_inicio': '',
           'dt_fim': '',
+          'objetivo': ''
         };
       }
 

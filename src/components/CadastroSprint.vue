@@ -26,6 +26,15 @@
                             />
                         </v-col>
                     </v-row>
+                        <v-row>
+                            <v-col cols="12" sm="12">
+                                <v-text-field 
+                                    v-model="objSprint.objetivo"
+                                    label="Objetivo"
+                                    :rules="[rules.required]"
+                                />
+                            </v-col>
+                        </v-row>
                     <v-row>
                         <v-col cols="12" sm="12" md="6">
                             <DatePicker
@@ -139,7 +148,8 @@ export default {
                         'numero': this.objSprint.numero,
                         'dt_inicio': this.objSprint.dt_inicio,
                         'dt_fim': this.objSprint.dt_fim,
-                        'sn_ativa': this.objSprint.sn_ativa
+                        'sn_ativa': this.objSprint.sn_ativa,
+                        'objetivo': this.objSprint.objetivo
                     });
                 }
                 else {
@@ -158,7 +168,8 @@ export default {
                         'numero': this.objSprint.numero,
                         'dt_inicio': this.objSprint.dt_inicio,
                         'dt_fim': this.objSprint.dt_fim,
-                        'sn_ativa': true
+                        'sn_ativa': true,
+                        'objetivo': this.objSprint.objetivo
                     });
                 }
 
