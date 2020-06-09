@@ -1,15 +1,31 @@
 <template>
   <v-container fluid>
 
+    <v-row v-if="sprint_atual == null">
+      <v-col 
+        cols="12" 
+        sm="12"
+      >
+        <v-alert 
+          text
+          type="info"
+          class="text-lg-center"
+        >
+          Você precisa de uma sprint ativa para utilizar o dashboard
+        </v-alert>
+      </v-col>
+    </v-row>
+
     <v-row justify="center" align="center">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn
             icon
-            dark
+            root
             x-small
             v-on="on"
             @click="getDados()"
+            :disabled="sprint_atual == null"
           >
             <v-icon color="primary">mdi-refresh</v-icon>
           </v-btn>
