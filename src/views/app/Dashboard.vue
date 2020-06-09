@@ -16,7 +16,11 @@
       </v-col>
     </v-row>
 
-    <v-row justify="center" align="center">
+    <v-row 
+      justify="center" 
+      align="center" 
+      v-else-if="sprint_atual != null"
+    >
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -25,7 +29,6 @@
             x-small
             v-on="on"
             @click="getDados()"
-            :disabled="sprint_atual == null"
           >
             <v-icon color="primary">mdi-refresh</v-icon>
           </v-btn>
