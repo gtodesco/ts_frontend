@@ -56,6 +56,9 @@
           :items="arrImpedimentos"
           :items-per-page="10"
           class="elevation-1"
+          :header-props="{
+            'sortByText': 'Ordenar'
+          }"
           :footer-props="{
             'itemsPerPageAllText': 'Todos',
             'itemsPerPageText': 'Itens por página',
