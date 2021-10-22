@@ -1,9 +1,9 @@
 # Team Stats 
 ## Front-end
 
-Front-end da aplicação "Team Stats", meu projeto de TCC pela FURB - Universidade Regional de Blumenau. 
+"Team Stats", my term paper project in FURB - Universidade Regional de Blumenau. 
 
-### Tecnologias utilizadas: 
+### Techs: 
 - Vue.js
 - VueRouter
 - Vuetify
@@ -13,5 +13,5 @@ Front-end da aplicação "Team Stats", meu projeto de TCC pela FURB - Universida
 ### Live preview: 
 https://master.d3f7a71rvr6u6i.amplifyapp.com/
 
-### Imagens: 
+### Screenshots: 
 https://drive.google.com/drive/folders/1CZzQBtlIoztEyUwHzmThon5Q0p5lrNPr?usp=sharing
