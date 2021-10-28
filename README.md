@@ -9,6 +9,8 @@
 - Vuetify
 - Chart.js
 - PWA - Progressive Web Aplication
+- AWS Amplify
+- AWS Cognito
 
 ### Live preview: 
 https://master.d3f7a71rvr6u6i.amplifyapp.com/
